@@ -131,9 +131,9 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-secondary-background px-6 py-4 shadow-[var(--shadow)]">
+      <header className="border-b border-border bg-secondary-background px-6 py-4 shadow-shadow">
         <div className="mx-auto flex max-w-2xl items-center justify-between">
-          <Link href="/" className="font-[family-name:var(--font-syne)] text-xl font-bold tracking-tight text-foreground">
+          <Link href="/" className="font-family-name:var(--font-syne) text-xl font-bold tracking-tight text-foreground">
             ContentForge AI
           </Link>
           <span className="text-sm text-foreground/70">
@@ -146,7 +146,7 @@ export default function SignupPage() {
       </header>
 
       <main className="mx-auto max-w-2xl px-6 py-12">
-        <Card className="border-2 border-border bg-secondary-background p-8 shadow-[var(--shadow)]">
+        <Card className="border-2 border-border bg-secondary-background p-8 shadow-shadow">
           {success ? (
             <div className="flex flex-col items-center gap-4 py-8 text-center">
               <CheckCircle className="h-12 w-12 text-green-600" />
@@ -156,7 +156,7 @@ export default function SignupPage() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <h1 className="font-[family-name:var(--font-syne)] mb-2 text-2xl font-bold text-foreground">
+                <h1 className="font-family-name:var(--font-syne) mb-2 text-2xl font-bold text-foreground">
                   Create Your Account
                 </h1>
                 <p className="text-foreground/80">
@@ -165,7 +165,7 @@ export default function SignupPage() {
               </div>
 
               {error && (
-                <div className="flex gap-3 rounded-[var(--radius-base)] border-2 border-red-500 bg-red-100 p-4 dark:bg-red-900/20">
+                <div className="flex gap-3 (--radius-base) border-2 border-red-500 bg-red-100 p-4 dark:bg-red-900/20">
                   <AlertCircle className="h-5 w-5 shrink-0 text-red-600 dark:text-red-400" />
                   <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
                 </div>
