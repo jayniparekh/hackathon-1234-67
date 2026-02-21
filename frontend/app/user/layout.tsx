@@ -19,7 +19,7 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 const navConfig = [
   { href: "/user/dashboard", label: "Dashboard", Icon: Layout },
   { href: "/user/content", label: "Content", Icon: FileText },
-  { href: "/user/enhance", label: "Enhance", Icon: MagicWand },
+  { href: "/user/enhance-edits", label: "Enhance", Icon: MagicWand },
   { href: "/user/distribute", label: "Distribute", Icon: Megaphone },
   { href: "/user/templates", label: "Templates", Icon: FileText },
   { href: "/user/analytics", label: "Analytics", Icon: ChartLineUp },
@@ -59,11 +59,10 @@ export default function UserLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-2 rounded-[var(--radius-base)] border-2 px-3 py-2 text-sm font-semibold shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${
-                  isActive
+                className={`flex items-center gap-2 rounded-[var(--radius-base)] border-2 px-3 py-2 text-sm font-semibold shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${isActive
                     ? "border-border bg-main text-main-foreground"
                     : "border-border bg-background text-foreground"
-                }`}
+                  }`}
               >
                 <Icon size={18} weight="duotone" />
                 {item.label}

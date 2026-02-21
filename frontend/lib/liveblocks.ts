@@ -20,8 +20,13 @@ const client = createClient({
 
 const { LiveblocksProvider } = createLiveblocksContext(client);
 
+export type Presence = {
+  cursorOffset: number | null;
+  color: string;
+};
+
 const roomBundle = createRoomContext<
-  Record<string, never>,
+  Presence,
   Storage,
   UserMeta,
   RoomEvent
@@ -35,4 +40,5 @@ export const {
   useOthers,
   useSelf,
   useStatus,
+  useUpdateMyPresence,
 } = roomBundle;
