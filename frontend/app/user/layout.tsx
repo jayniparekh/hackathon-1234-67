@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const navConfig = [
   { href: "/user/dashboard", label: "Dashboard" },
   { href: "/user/content", label: "Content" },
-  { href: "/user/enhance", label: "Enhance" },
+  { href: "/user/enhance-edits", label: "Enhance Edits" },
   { href: "/user/distribute", label: "Distribute" },
   { href: "/user/templates", label: "Templates" },
   { href: "/user/analytics", label: "Analytics" },
@@ -36,11 +36,10 @@ export default function UserLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-[var(--radius-base)] border-2 px-3 py-2 text-sm font-semibold shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${
-                  isActive
-                    ? "border-border bg-main text-main-foreground"
-                    : "border-border bg-background text-foreground"
-                }`}
+                className={`rounded-[var(--radius-base)] border-2 px-3 py-2 text-sm font-semibold shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${isActive
+                  ? "border-border bg-main text-main-foreground"
+                  : "border-border bg-background text-foreground"
+                  }`}
               >
                 {item.label}
               </Link>

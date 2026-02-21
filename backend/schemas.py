@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 
 
+
 class AnalysisOptions(BaseModel):
     """
     Options to control which analyses to run.
@@ -130,6 +131,24 @@ class ExportGraphRequest(BaseModel):
                 "text": "John Smith is the CEO of TechCorp. He founded the company in 2015 in Silicon Valley."
             }
         }
+
+
+class ThumbnailRequest(BaseModel):
+    prompt: str = Field(description="Image generation prompt.", min_length=1)
+    width: int = Field(default=1024, ge=256, le=2048, description="Image width.")
+    height: int = Field(default=1024, ge=256, le=2048, description="Image height.")
+    num_inference_steps: int = Field(default=6, ge=1, le=50, description="Inference steps.")
+    reference_image_base64: Optional[str] = Field(
+        default=None,
+        description="Optional base64-encoded reference image (e.g. face) for enhancement.",
+    )
+
+
+class ThumbnailResponse(BaseModel):
+    success: bool = Field(description="Whether generation succeeded.")
+    image_base64: Optional[str] = Field(default=None, description="Base64-encoded PNG image.")
+    error: Optional[str] = Field(default=None, description="Error message if success is False.")
+    duration_seconds: Optional[float] = Field(default=None, description="Generation time in seconds.")
 
 
 class HealthResponse(BaseModel):
