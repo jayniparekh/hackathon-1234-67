@@ -77,3 +77,33 @@ JSON array of edits:`;
       userAction: null,
     }));
 }
+
+const COMPLETION_CONTEXT_WORDS = 120;
+
+export async function getCompletions(text: string): Promise<string[]> {
+  if (!process.env.GEMINI_API_KEY) return [];
+  const model = process.env.GEMINI_MODEL ?? "gemini-3-flash-preview";
+  const words = text.trim().split(/\s+/);
+  const context = words.slice(-COMPLETION_CONTEXT_WORDS).join(" ");
+  if (!context) return [];
+  const prompt = `Suggest 1 to 3 short continuations (next few words or phrase) for this text. Output ONLY a JSON array of strings, no other text. Example: ["option one", "option two"]
+
+Text:
+${context}
+
+JSON array:`;
+  try {
+    const response = await ai.models.generateContent({ model, contents: prompt });
+    const raw = (response.text ?? "").trim();
+    const arrMatch = raw.match(/\[[\s\S]*?\]/);
+    const jsonStr = arrMatch ? arrMatch[0] : raw;
+    const out = JSON.parse(jsonStr) as unknown;
+    if (!Array.isArray(out)) return [];
+    return out
+      .filter((x): x is string => typeof x === "string" && x.length > 0)
+      .map((s) => String(s).trim())
+      .slice(0, 3);
+  } catch {
+    return [];
+  }
+}

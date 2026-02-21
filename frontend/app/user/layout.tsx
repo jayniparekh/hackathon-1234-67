@@ -12,6 +12,7 @@ import {
   ChartLineUp,
   Microphone,
   SignOut,
+  PencilLine,
 } from "@phosphor-icons/react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
@@ -23,6 +24,7 @@ const navConfig = [
   { href: "/user/templates", label: "Templates", Icon: FileText },
   { href: "/user/analytics", label: "Analytics", Icon: ChartLineUp },
   { href: "/user/brand-voice", label: "Brand Voice", Icon: Microphone },
+  { href: "/user/live-editor", label: "Live Editor", Icon: PencilLine },
   { href: "/user/settings", label: "Settings", Icon: Gear },
 ];
 
