@@ -17,7 +17,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
 # Import all routers
-from backend.routers import health, analyze, transform, graph
+from backend.routers import health, analyze, transform, graph, brand_voice
 
 
 # --- Create the FastAPI application ---
@@ -73,6 +73,7 @@ app.include_router(health.router)
 app.include_router(analyze.router)
 app.include_router(transform.router)
 app.include_router(graph.router)
+app.include_router(brand_voice.router)
 
 
 # --- Serve the Frontend HTML ---
