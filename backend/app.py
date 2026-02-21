@@ -7,24 +7,51 @@ from dotenv import load_dotenv
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
-_env_dir = Path(__file__).resolve().parent
-_cwd = Path.cwd()
-for path in [
-    _env_dir / ".env",
-    _env_dir / ".env.local",
-    _cwd / ".env",
-    _cwd / ".env.local",
-    _cwd / "backend" / ".env",
-    _cwd / "backend" / ".env.local",
-]:
-    if path.exists():
-        load_dotenv(path, override=False)
+# Import all routers
+from backend.routers import health, analyze, transform, graph
 
-from backend.routers import thumbnail
 
-app = FastAPI(title="ContentForge API", version="1.0.0")
+# --- Create the FastAPI application ---
+app = FastAPI(
+    title="AI Writer API",
+    description="""
+## AI-Powered Content Enhancement System
 
+A hackathon-winning NLP pipeline that enhances writing using **traditional NLP techniques**, not LLM wrappers.
+
+### What makes this different from a ChatGPT wrapper?
+
+| Feature | LLM Wrapper | This System |
+|---|---|---|
+| Narrative Tracking | "Check consistency" prompt | NetworkX knowledge graph |
+| Coherence | Black-box judgment | Cosine similarity on Sentence-BERT |
+| Tone Detection | GPT classification | Custom SVM + SHAP explainability |
+| Style Transform | "Make it formal" prompt | WordNet lexical substitution |
+| Explainability | None | Word-level attribution scores |
+
+### Modules
+- **Narrative Engine** — spaCy NER + NetworkX graphs
+- **Structural Engine** — Dependency parsing, passive-to-active voice
+- **Thematic Engine** — Sentence-BERT + FAISS + cosine similarity
+- **Style Engine** — SVM classifier + SHAP + WordNet synonyms
+- **Suggestion Engine** — Aggregates all findings into ranked suggestions
+""",
+    version="1.0.0",
+    contact={
+        "name": "AI Writer Project",
+    },
+    license_info={
+        "name": "MIT",
+    }
+)
+
+
+# --- CORS Middleware ---
+# This allows the frontend HTML file to call the API from the browser.
+# Without this, the browser blocks cross-origin requests.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -33,4 +60,36 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(thumbnail.router)
+
+# --- Register Routers ---
+# Each router handles one group of related endpoints.
+app.include_router(health.router)
+app.include_router(analyze.router)
+app.include_router(transform.router)
+app.include_router(graph.router)
+
+
+# --- Serve the Frontend HTML ---
+# When someone visits http://localhost:5000/ we send them the HTML file.
+@app.get("/", include_in_schema=False)
+def serve_frontend():
+    """Serve the frontend HTML file."""
+    frontend_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "frontend",
+        "index.html"
+    )
+    return FileResponse(frontend_path)
+
+
+# --- Startup Event ---
+# This runs once when the server first starts up.
+@app.on_event("startup")
+def on_startup():
+    print("\n" + "=" * 60)
+    print("  AI Writer API - FastAPI Server")
+    print("=" * 60)
+    print("  API:  http://localhost:5000")
+    print("  Docs: http://localhost:5000/docs")
+    print("  UI:   http://localhost:5000")
+    print("=" * 60 + "\n")

@@ -3,7 +3,9 @@ import type { EditRecord } from "./db";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY ?? "" });
 
-export async function getEditsFromContent(content: string): Promise<EditRecord[]> {
+export async function getEditsFromContent(
+  content: string,
+): Promise<EditRecord[]> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("GEMINI_API_KEY is not set");
   const model = process.env.GEMINI_MODEL ?? "gemini-3-flash-preview";
@@ -41,18 +43,27 @@ JSON array of edits:`;
   return arr
     .filter(
       (x): x is Record<string, unknown> =>
-        x !== null && typeof x === "object" && "original" in x && "enhanced" in x
+        x !== null &&
+        typeof x === "object" &&
+        "original" in x &&
+        "enhanced" in x,
     )
     .map((x, i) => ({
       editId: typeof x.editId === "string" ? x.editId : `e_${i + 1}`,
       original: String(x.original ?? ""),
       enhanced: String(x.enhanced ?? ""),
-      changeType: ["grammar", "style", "clarity", "seo"].includes(String(x.changeType))
+      changeType: ["grammar", "style", "clarity", "seo"].includes(
+        String(x.changeType),
+      )
         ? (x.changeType as EditRecord["changeType"])
         : "clarity",
       reasoning: String(x.reasoning ?? "Improvement suggested."),
-      confidence: typeof x.confidence === "number" ? Math.min(1, Math.max(0, x.confidence)) : 0.8,
-      impactPrediction: typeof x.impactPrediction === "string" ? x.impactPrediction : undefined,
+      confidence:
+        typeof x.confidence === "number"
+          ? Math.min(1, Math.max(0, x.confidence))
+          : 0.8,
+      impactPrediction:
+        typeof x.impactPrediction === "string" ? x.impactPrediction : undefined,
       sources: Array.isArray(x.sources) ? x.sources.map(String) : undefined,
       userAction: null as const,
     }));
