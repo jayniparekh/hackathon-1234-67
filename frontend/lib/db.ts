@@ -32,6 +32,10 @@ export const collections = {
     if (!db) throw new Error("MONGODB_URI is not set");
     return db.collection<RevisionRecord>("revisions");
   },
+  users: () => {
+    if (!db) throw new Error("MONGODB_URI is not set");
+    return db.collection<UserRecord>("users");
+  },
 };
 
 export type DocumentRecord = {
@@ -61,4 +65,26 @@ export type RevisionRecord = {
   content: string;
   edits: EditRecord[];
   createdAt: Date;
+};
+
+export type UserRecord = {
+  _id?: unknown;
+  name: string;
+  username?: string;
+  email: string;
+  passwordHash: string;
+  gender?: "man" | "woman" | "non-binary" | "prefer-not-to-say";
+  age?: number;
+  location?: string;
+  niche?: "fitness" | "beauty" | "lifestyle";
+  height?: string;
+  education?: "" | "high-school" | "some-college" | "bachelors" | "masters" | "doctorate" | "trade-school";
+  occupation?: string;
+  religion?: "" | "agnostic" | "atheist" | "buddhist" | "christian" | "hindu" | "jewish" | "muslim" | "spiritual" | "other";
+  drinkingHabits?: "" | "never" | "rarely" | "socially" | "regularly";
+  smokingHabits?: "" | "never" | "socially" | "regularly" | "trying-to-quit";
+  fitnessLevel?: "" | "not-active" | "occasionally" | "moderately" | "very" | "athlete";
+  dietaryPreferences?: "" | "no-restrictions" | "vegetarian" | "vegan" | "pescatarian" | "kosher" | "halal" | "other";
+  createdAt: Date;
+  updatedAt: Date;
 };
