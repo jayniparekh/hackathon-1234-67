@@ -1,6 +1,17 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import {
+  Dna,
+  ChartBar,
+  Sparkle,
+  Warning,
+  CircleNotch,
+  CheckCircle,
+  Check,
+  Clipboard,
+  XCircle,
+} from "@phosphor-icons/react";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface Profile {
@@ -227,9 +238,9 @@ export default function BrandVoicePage() {
     };
 
     const tabs = [
-        { key: "builder", label: "🧬 Brand Builder" },
-        { key: "scorer", label: "📊 Brand Scorer" },
-        { key: "correct", label: "✨ Auto-Correct" },
+        { key: "builder", label: "Brand Builder", Icon: Dna },
+        { key: "scorer", label: "Brand Scorer", Icon: ChartBar },
+        { key: "correct", label: "Auto-Correct", Icon: Sparkle },
     ] as const;
 
     return (
@@ -237,8 +248,8 @@ export default function BrandVoicePage() {
             {/* Page header */}
             <div className="border-b-2 border-border bg-secondary-background px-8 py-6 shadow-[var(--shadow)]">
                 <div className="flex items-start gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-base)] border-2 border-border bg-main text-xl font-bold text-main-foreground shadow-[var(--shadow)]">
-                        🧬
+                    <div className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-base)] border-2 border-border bg-main text-main-foreground shadow-[var(--shadow)]">
+                        <Dna size={28} weight="duotone" />
                     </div>
                     <div>
                         <h1 className="font-[family-name:var(--font-syne)] text-2xl font-bold text-foreground">
@@ -252,16 +263,17 @@ export default function BrandVoicePage() {
 
                 {/* Tabs */}
                 <div className="mt-6 flex gap-2">
-                    {tabs.map(({ key, label }) => (
+                    {tabs.map(({ key, label, Icon }) => (
                         <button
                             key={key}
                             type="button"
                             onClick={() => handleTabChange(key)}
-                            className={`rounded-[var(--radius-base)] border-2 border-border px-4 py-2 text-sm font-semibold shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${tab === key
+                            className={`flex items-center gap-2 rounded-[var(--radius-base)] border-2 border-border px-4 py-2 text-sm font-semibold shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${tab === key
                                     ? "bg-main text-main-foreground"
                                     : "bg-background text-foreground"
                                 }`}
                         >
+                            <Icon size={18} weight="duotone" />
                             {label}
                         </button>
                     ))}
@@ -322,8 +334,9 @@ export default function BrandVoicePage() {
                         </div>
 
                         {buildError && (
-                            <div className="rounded-[var(--radius-base)] border-2 border-[#FF4D50] bg-[#FF4D50]/10 px-4 py-3 text-sm font-semibold text-[#FF4D50]">
-                                ⚠ {buildError}
+                            <div className="flex items-center gap-2 rounded-[var(--radius-base)] border-2 border-[#FF4D50] bg-[#FF4D50]/10 px-4 py-3 text-sm font-semibold text-[#FF4D50]">
+                                <Warning size={20} weight="fill" />
+                                {buildError}
                             </div>
                         )}
 
@@ -331,16 +344,26 @@ export default function BrandVoicePage() {
                             type="button"
                             onClick={handleBuild}
                             disabled={building}
-                            className="w-full rounded-[var(--radius-base)] border-2 border-border bg-main px-6 py-3 font-bold text-main-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex w-full items-center justify-center gap-2 rounded-[var(--radius-base)] border-2 border-border bg-main px-6 py-3 font-bold text-main-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {building ? "⏳ Extracting brand DNA via Gemini..." : "🧬 Extract Brand Voice Profile"}
+                            {building ? (
+                                <>
+                                    <CircleNotch size={20} weight="bold" className="animate-spin" />
+                                    Extracting brand DNA via Gemini...
+                                </>
+                            ) : (
+                                <>
+                                    <Dna size={20} weight="duotone" />
+                                    Extract Brand Voice Profile
+                                </>
+                            )}
                         </button>
 
                         {/* Profile result card */}
                         {builtProfile && (
                             <div className="rounded-[var(--radius-base)] border-2 border-[#05E17A] bg-secondary-background p-6 shadow-[var(--shadow)] space-y-5">
                                 <div className="flex items-center gap-3">
-                                    <span className="text-2xl">✅</span>
+                                    <CheckCircle size={28} weight="fill" className="text-[#05E17A] shrink-0" />
                                     <div>
                                         <p className="font-[family-name:var(--font-syne)] text-lg font-bold text-foreground">
                                             {builtProfile.name}
@@ -393,8 +416,9 @@ export default function BrandVoicePage() {
                                     <p className="text-sm text-foreground/80">{builtProfile.writing_style_notes}</p>
                                 </div>
 
-                                <p className="text-xs text-[#05E17A] font-semibold">
-                                    ✓ Profile saved — switch to Brand Scorer or Auto-Correct to use it.
+                                <p className="flex items-center gap-1.5 text-xs text-[#05E17A] font-semibold">
+                                    <Check size={14} weight="bold" />
+                                    Profile saved — switch to Brand Scorer or Auto-Correct to use it.
                                 </p>
                             </div>
                         )}
@@ -455,8 +479,9 @@ export default function BrandVoicePage() {
                         </div>
 
                         {scoreError && (
-                            <div className="rounded-[var(--radius-base)] border-2 border-[#FF4D50] bg-[#FF4D50]/10 px-4 py-3 text-sm font-semibold text-[#FF4D50]">
-                                ⚠ {scoreError}
+                            <div className="flex items-center gap-2 rounded-[var(--radius-base)] border-2 border-[#FF4D50] bg-[#FF4D50]/10 px-4 py-3 text-sm font-semibold text-[#FF4D50]">
+                                <Warning size={20} weight="fill" />
+                                {scoreError}
                             </div>
                         )}
 
@@ -464,9 +489,19 @@ export default function BrandVoicePage() {
                             type="button"
                             onClick={handleScore}
                             disabled={scoring}
-                            className="w-full rounded-[var(--radius-base)] border-2 border-border bg-main px-6 py-3 font-bold text-main-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex w-full items-center justify-center gap-2 rounded-[var(--radius-base)] border-2 border-border bg-main px-6 py-3 font-bold text-main-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {scoring ? "⏳ Scoring via Gemini..." : "📊 Score Brand Match"}
+                            {scoring ? (
+                                <>
+                                    <CircleNotch size={20} weight="bold" className="animate-spin" />
+                                    Scoring via Gemini...
+                                </>
+                            ) : (
+                                <>
+                                    <ChartBar size={20} weight="duotone" />
+                                    Score Brand Match
+                                </>
+                            )}
                         </button>
 
                         {/* Score result */}
@@ -505,11 +540,14 @@ export default function BrandVoicePage() {
                                 {/* Strengths */}
                                 {scoreResult.strengths.length > 0 && (
                                     <div>
-                                        <p className="mb-2 text-xs font-bold uppercase tracking-wider text-foreground/40">✅ Strengths</p>
+                                        <p className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-foreground/40">
+                                            <CheckCircle size={14} weight="fill" className="text-[#05E17A]" />
+                                            Strengths
+                                        </p>
                                         <ul className="space-y-1">
                                             {scoreResult.strengths.map((s, i) => (
                                                 <li key={i} className="flex items-start gap-2 text-sm text-foreground/80">
-                                                    <span className="mt-0.5 text-[#05E17A]">•</span> {s}
+                                                    <CheckCircle size={14} weight="fill" className="mt-0.5 shrink-0 text-[#05E17A]" /> {s}
                                                 </li>
                                             ))}
                                         </ul>
@@ -519,11 +557,14 @@ export default function BrandVoicePage() {
                                 {/* Deviations */}
                                 {scoreResult.deviations.length > 0 && (
                                     <div>
-                                        <p className="mb-2 text-xs font-bold uppercase tracking-wider text-foreground/40">⚠ Deviations</p>
+                                        <p className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-foreground/40">
+                                            <Warning size={14} weight="fill" className="text-[#FF4D50]" />
+                                            Deviations
+                                        </p>
                                         <ul className="space-y-1">
                                             {scoreResult.deviations.map((d, i) => (
                                                 <li key={i} className="flex items-start gap-2 text-sm text-foreground/80">
-                                                    <span className="mt-0.5 text-[#FF4D50]">•</span> {d}
+                                                    <Warning size={14} weight="fill" className="mt-0.5 shrink-0 text-[#FF4D50]" /> {d}
                                                 </li>
                                             ))}
                                         </ul>
@@ -578,8 +619,9 @@ export default function BrandVoicePage() {
                         </div>
 
                         {correctError && (
-                            <div className="rounded-[var(--radius-base)] border-2 border-[#FF4D50] bg-[#FF4D50]/10 px-4 py-3 text-sm font-semibold text-[#FF4D50]">
-                                ⚠ {correctError}
+                            <div className="flex items-center gap-2 rounded-[var(--radius-base)] border-2 border-[#FF4D50] bg-[#FF4D50]/10 px-4 py-3 text-sm font-semibold text-[#FF4D50]">
+                                <Warning size={20} weight="fill" />
+                                {correctError}
                             </div>
                         )}
 
@@ -587,9 +629,19 @@ export default function BrandVoicePage() {
                             type="button"
                             onClick={handleCorrect}
                             disabled={correcting}
-                            className="w-full rounded-[var(--radius-base)] border-2 border-border bg-main px-6 py-3 font-bold text-main-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex w-full items-center justify-center gap-2 rounded-[var(--radius-base)] border-2 border-border bg-main px-6 py-3 font-bold text-main-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {correcting ? "⏳ Rewriting via Gemini..." : "✨ Auto-Correct to Brand Voice"}
+                            {correcting ? (
+                                <>
+                                    <CircleNotch size={20} weight="bold" className="animate-spin" />
+                                    Rewriting via Gemini...
+                                </>
+                            ) : (
+                                <>
+                                    <Sparkle size={20} weight="duotone" />
+                                    Auto-Correct to Brand Voice
+                                </>
+                            )}
                         </button>
 
                         {/* Correction result */}
@@ -614,8 +666,9 @@ export default function BrandVoicePage() {
                                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                                     <div className="rounded-[var(--radius-base)] border-2 border-[#FF4D50] bg-secondary-background p-5 shadow-[var(--shadow)]">
                                         <div className="mb-3 flex items-center gap-2">
-                                            <span className="inline-block rounded-[var(--radius-base)] border-2 border-[#FF4D50] bg-[#FF4D50]/10 px-2 py-0.5 text-xs font-bold text-[#FF4D50]">
-                                                ❌ Original · {correctResult.original_score}% match
+                                            <span className="inline-flex items-center gap-1 rounded-[var(--radius-base)] border-2 border-[#FF4D50] bg-[#FF4D50]/10 px-2 py-0.5 text-xs font-bold text-[#FF4D50]">
+                                                <XCircle size={14} weight="fill" />
+                                                Original · {correctResult.original_score}% match
                                             </span>
                                         </div>
                                         <p className="text-sm leading-relaxed text-foreground/80 whitespace-pre-wrap">
@@ -624,8 +677,9 @@ export default function BrandVoicePage() {
                                     </div>
                                     <div className="rounded-[var(--radius-base)] border-2 border-[#05E17A] bg-secondary-background p-5 shadow-[var(--shadow)]">
                                         <div className="mb-3 flex items-center gap-2">
-                                            <span className="inline-block rounded-[var(--radius-base)] border-2 border-[#05E17A] bg-[#05E17A]/10 px-2 py-0.5 text-xs font-bold text-[#05E17A]">
-                                                ✅ Corrected · {correctResult.corrected_score}% match
+                                            <span className="inline-flex items-center gap-1 rounded-[var(--radius-base)] border-2 border-[#05E17A] bg-[#05E17A]/10 px-2 py-0.5 text-xs font-bold text-[#05E17A]">
+                                                <CheckCircle size={14} weight="fill" />
+                                                Corrected · {correctResult.corrected_score}% match
                                             </span>
                                         </div>
                                         <p className="text-sm leading-relaxed text-foreground/80 whitespace-pre-wrap">
@@ -655,9 +709,10 @@ export default function BrandVoicePage() {
                                 <button
                                     type="button"
                                     onClick={() => navigator.clipboard.writeText(correctResult.corrected_text)}
-                                    className="rounded-[var(--radius-base)] border-2 border-border bg-background px-4 py-2 text-sm font-semibold text-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+                                    className="flex items-center gap-2 rounded-[var(--radius-base)] border-2 border-border bg-background px-4 py-2 text-sm font-semibold text-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
                                 >
-                                    📋 Copy corrected text
+                                    <Clipboard size={18} weight="duotone" />
+                                    Copy corrected text
                                 </button>
                             </div>
                         )}

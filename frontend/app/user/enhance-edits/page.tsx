@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { Check, X } from "@phosphor-icons/react";
 
 type Edit = {
   editId: string;
@@ -229,7 +230,19 @@ export default function EnhancePage() {
                     </span>
                     {edit.userAction != null && (
                       <span className="text-xs text-foreground/70">
-                        {edit.userAction === "accepted" ? "✓ Accepted" : "✗ Rejected"}
+                        <span className="inline-flex items-center gap-1">
+                        {edit.userAction === "accepted" ? (
+                          <>
+                            <Check size={14} weight="bold" className="text-green-600" />
+                            Accepted
+                          </>
+                        ) : (
+                          <>
+                            <X size={14} weight="bold" className="text-red-600" />
+                            Rejected
+                          </>
+                        )}
+                      </span>
                       </span>
                     )}
                     <button

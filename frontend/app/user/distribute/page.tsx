@@ -1,7 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Calendar, Eye, Send, Clock, Hash, Zap } from "lucide-react";
+import {
+  Calendar,
+  Eye,
+  PaperPlaneTilt,
+  Clock,
+  Hash,
+  Lightning,
+  Camera,
+  MusicNotes,
+  Robot,
+  Bird,
+  Briefcase,
+  ChatCircle,
+} from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,7 +23,7 @@ const PLATFORMS = [
   {
     id: "twitter",
     name: "Twitter",
-    icon: "𝕏",
+    Icon: Bird,
     color: "bg-black",
     maxChars: 280,
     connected: true,
@@ -18,7 +31,7 @@ const PLATFORMS = [
   {
     id: "linkedin",
     name: "LinkedIn",
-    icon: "in",
+    Icon: Briefcase,
     color: "bg-blue-600",
     maxChars: 3000,
     connected: true,
@@ -26,7 +39,7 @@ const PLATFORMS = [
   {
     id: "instagram",
     name: "Instagram",
-    icon: "📷",
+    Icon: Camera,
     color: "bg-gradient-to-r from-pink-500 to-amber-400",
     maxChars: 2200,
     connected: false,
@@ -34,7 +47,7 @@ const PLATFORMS = [
   {
     id: "facebook",
     name: "Facebook",
-    icon: "f",
+    Icon: ChatCircle,
     color: "bg-blue-500",
     maxChars: 63206,
     connected: true,
@@ -42,7 +55,7 @@ const PLATFORMS = [
   {
     id: "tiktok",
     name: "TikTok",
-    icon: "♪",
+    Icon: MusicNotes,
     color: "bg-black",
     maxChars: 150,
     connected: false,
@@ -50,7 +63,7 @@ const PLATFORMS = [
   {
     id: "reddit",
     name: "Reddit",
-    icon: "🤖",
+    Icon: Robot,
     color: "bg-orange-500",
     maxChars: 10000,
     connected: true,
@@ -119,9 +132,9 @@ export default function DistributePage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`rounded-lg p-2 w-10 h-10 flex items-center justify-center ${platform.color} text-white text-sm font-bold`}
+                        className={`rounded-lg p-2 w-10 h-10 flex items-center justify-center ${platform.color} text-white`}
                       >
-                        {platform.icon}
+                        <platform.Icon size={20} weight="duotone" />
                       </div>
                       <div>
                         <p className="font-semibold text-foreground">
@@ -185,7 +198,7 @@ export default function DistributePage() {
           {/* AI Suggestions */}
           <Card className="border-2 border-border bg-secondary-background p-4">
             <div className="flex items-start gap-2">
-              <Zap size={16} className="mt-1 text-amber-500 flex-shrink-0" />
+              <Lightning size={16} weight="duotone" className="mt-1 text-amber-500 flex-shrink-0" />
               <div>
                 <p className="text-sm font-semibold text-foreground">
                   AI Suggestions
@@ -216,10 +229,10 @@ export default function DistributePage() {
           {/* Action Buttons */}
           <div className="space-y-2">
             <Button className="w-full rounded-lg border-2 border-border bg-background text-foreground hover:bg-main hover:text-main-foreground font-semibold">
-              <Eye size={16} className="mr-2" /> Preview All
+              <Eye size={16} weight="duotone" className="mr-2" /> Preview All
             </Button>
             <Button className="w-full rounded-lg border-2 border-main bg-main text-main-foreground font-bold hover:shadow-lg">
-              <Send size={16} className="mr-2" /> Publish Now
+              <PaperPlaneTilt size={16} weight="duotone" className="mr-2" /> Publish Now
             </Button>
           </div>
         </div>
@@ -274,7 +287,7 @@ export default function DistributePage() {
                         </p>
                       </div>
                       <div className="mt-3 flex items-center gap-2 text-xs text-foreground/60">
-                        <Clock size={14} />
+                        <Clock size={14} weight="duotone" />
                         {timePreset === "optimal"
                           ? "Scheduled for optimal time"
                           : "Ready to publish immediately"}
@@ -300,7 +313,7 @@ export default function DistributePage() {
                         className="flex items-center justify-between rounded-lg bg-background p-3"
                       >
                         <div className="flex items-center gap-2">
-                          <Calendar size={16} className="text-main" />
+                          <Calendar size={16} weight="duotone" className="text-main" />
                           <span className="font-semibold text-foreground">
                             {platform?.name}
                           </span>

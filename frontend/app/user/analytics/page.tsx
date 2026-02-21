@@ -17,7 +17,23 @@ import {
   ScatterChart,
   Scatter,
 } from "recharts";
-import { TrendingUp, Zap, MessageSquare, DollarSign, AlertCircle, CheckCircle } from "lucide-react";
+import {
+  TrendUp,
+  Lightning,
+  ChatCircle,
+  CurrencyDollar,
+  WarningCircle,
+  CheckCircle,
+  Check,
+  ChartLineUp,
+  Target,
+  Clock,
+  Smiley,
+  Brain,
+  Fire,
+  Thermometer,
+  Lightbulb,
+} from "@phosphor-icons/react";
 import { Card } from "@/components/ui/card";
 
 // Sample data
@@ -131,28 +147,28 @@ export default function AnalyticsPage() {
             label="Engagement"
             value="132"
             change="18% this week"
-            icon={<Zap className="text-white" size={24} />}
+            icon={<Lightning className="text-white" size={24} weight="duotone" />}
             color="bg-blue-500"
           />
           <MetricCard
             label="Sentiment Score"
             value="89/100"
             change="5 points up"
-            icon={<MessageSquare className="text-white" size={24} />}
+            icon={<ChatCircle className="text-white" size={24} weight="duotone" />}
             color="bg-green-500"
           />
           <MetricCard
             label="ROI"
             value="$420K"
             change="28% growth"
-            icon={<DollarSign className="text-white" size={24} />}
+            icon={<CurrencyDollar className="text-white" size={24} weight="duotone" />}
             color="bg-purple-500"
           />
           <MetricCard
             label="Prediction Accuracy"
             value="94%"
             change="2% improved"
-            icon={<TrendingUp className="text-white" size={24} />}
+            icon={<TrendUp className="text-white" size={24} weight="duotone" />}
             color="bg-amber-500"
           />
         </div>
@@ -160,8 +176,9 @@ export default function AnalyticsPage() {
         {/* Performance Trend Chart */}
         <div className="mb-8">
           <Card className="border-2 border-border bg-secondary-background p-6">
-            <h2 className="mb-4 text-lg font-bold text-foreground">
-              📈 Performance Over Time
+            <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+              <ChartLineUp size={22} weight="duotone" />
+              Performance Over Time
             </h2>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={performanceTrend}>
@@ -206,8 +223,9 @@ export default function AnalyticsPage() {
         <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Format Performance */}
           <Card className="border-2 border-border bg-secondary-background p-6">
-            <h2 className="mb-4 text-lg font-bold text-foreground">
-              🎯 Content Format Performance
+            <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+              <Target size={22} weight="duotone" />
+              Content Format Performance
             </h2>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={contentFormatPerformance}>
@@ -230,8 +248,9 @@ export default function AnalyticsPage() {
 
           {/* Optimal Posting Times */}
           <Card className="border-2 border-border bg-secondary-background p-6">
-            <h2 className="mb-4 text-lg font-bold text-foreground">
-              ⏰ Optimal Posting Times
+            <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+              <Clock size={22} weight="duotone" />
+              Optimal Posting Times
             </h2>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={optimalTimes}>
@@ -255,8 +274,9 @@ export default function AnalyticsPage() {
         <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Sentiment Distribution */}
           <Card className="border-2 border-border bg-secondary-background p-6">
-            <h2 className="mb-4 text-lg font-bold text-foreground">
-              😊 Sentiment Distribution
+            <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+              <Smiley size={22} weight="duotone" />
+              Sentiment Distribution
             </h2>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
@@ -281,8 +301,9 @@ export default function AnalyticsPage() {
 
           {/* Learning Loop Feedback */}
           <Card className="border-2 border-border bg-secondary-background p-6">
-            <h2 className="mb-4 text-lg font-bold text-foreground">
-              🧠 Learning Loop Insights
+            <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+              <Brain size={22} weight="duotone" />
+              Learning Loop Insights
             </h2>
             <div className="space-y-3">
               {learningLoopInsights.map((item, idx) => (
@@ -296,9 +317,9 @@ export default function AnalyticsPage() {
                 >
                   <div className="flex items-start gap-2">
                     {item.type === "success" ? (
-                      <CheckCircle size={16} className="mt-0.5 text-green-600 flex-shrink-0" />
+                      <CheckCircle size={16} weight="fill" className="mt-0.5 text-green-600 flex-shrink-0" />
                     ) : (
-                      <AlertCircle size={16} className="mt-0.5 text-amber-600 flex-shrink-0" />
+                      <WarningCircle size={16} weight="fill" className="mt-0.5 text-amber-600 flex-shrink-0" />
                     )}
                     <div className="flex-1">
                       <p className="text-xs font-semibold text-foreground">
@@ -318,8 +339,9 @@ export default function AnalyticsPage() {
         {/* Content Performance Heatmap-Style Table */}
         <div className="mb-8">
           <Card className="border-2 border-border bg-secondary-background p-6">
-            <h2 className="mb-4 text-lg font-bold text-foreground">
-              🔥 Engagement Prediction vs Actual
+            <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+              <Fire size={22} weight="duotone" />
+              Engagement Prediction vs Actual
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -400,8 +422,9 @@ export default function AnalyticsPage() {
         {/* Performance Heatmap */}
         <div className="mb-8">
           <Card className="border-2 border-border bg-secondary-background p-6">
-            <h2 className="mb-4 text-lg font-bold text-foreground">
-              🌡️ Performance Heatmap (Day × Hour)
+            <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+              <Thermometer size={22} weight="duotone" />
+              Performance Heatmap (Day × Hour)
             </h2>
             <div className="overflow-x-auto">
               <div className="inline-block min-w-full">
@@ -459,26 +482,31 @@ export default function AnalyticsPage() {
         {/* Recommendations */}
         <div className="mb-8">
           <Card className="border-2 border-border bg-gradient-to-r from-main/10 via-secondary-background to-secondary-background p-6">
-            <h2 className="mb-4 text-lg font-bold text-foreground">
-              💡 AI-Generated Recommendations
+            <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+              <Lightbulb size={22} weight="duotone" />
+              AI-Generated Recommendations
             </h2>
             <div className="space-y-2">
-              <p className="text-sm text-foreground">
-                ✓ <span className="font-semibold">Schedule videos for 3 PM</span> — Peak
-                engagement window with 92% average performance.
+              <p className="flex items-start gap-2 text-sm text-foreground">
+                <Check size={16} weight="bold" className="mt-0.5 shrink-0 text-green-600" />
+                <span><span className="font-semibold">Schedule videos for 3 PM</span> — Peak
+                engagement window with 92% average performance.</span>
               </p>
-              <p className="text-sm text-foreground">
-                ✓ <span className="font-semibold">Focus on case studies</span> — Highest
-                ROI ($1,200) and sentiment (91/100) among all formats.
+              <p className="flex items-start gap-2 text-sm text-foreground">
+                <Check size={16} weight="bold" className="mt-0.5 shrink-0 text-green-600" />
+                <span><span className="font-semibold">Focus on case studies</span> — Highest
+                ROI ($1,200) and sentiment (91/100) among all formats.</span>
               </p>
-              <p className="text-sm text-foreground">
-                ✓ <span className="font-semibold">Improve Monday content</span> — Posts
-                underperform by 15%. Consider stronger narratives or formal tone.
+              <p className="flex items-start gap-2 text-sm text-foreground">
+                <Check size={16} weight="bold" className="mt-0.5 shrink-0 text-green-600" />
+                <span><span className="font-semibold">Improve Monday content</span> — Posts
+                underperform by 15%. Consider stronger narratives or formal tone.</span>
               </p>
-              <p className="text-sm text-foreground">
-                ✓ <span className="font-semibold">Maintain narrative consistency</span> —
+              <p className="flex items-start gap-2 text-sm text-foreground">
+                <Check size={16} weight="bold" className="mt-0.5 shrink-0 text-green-600" />
+                <span><span className="font-semibold">Maintain narrative consistency</span> —
                 Consistent posts show 25% better sentiment, feeding back into your next
-                enhancement cycle.
+                enhancement cycle.</span>
               </p>
             </div>
           </Card>

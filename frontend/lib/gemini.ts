@@ -3,6 +3,15 @@ import type { EditRecord } from "./db";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY ?? "" });
 
+export async function generateJSON<T>(prompt: string): Promise<T> {
+  if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is not set");
+  const model = process.env.GEMINI_MODEL ?? "gemini-3-flash-preview";
+  const response = await ai.models.generateContent({ model, contents: prompt });
+  let raw = (response.text ?? "").trim();
+  raw = raw.replace(/^```[a-z]*\n?/i, "").replace(/\n?```$/i, "");
+  return JSON.parse(raw) as T;
+}
+
 export async function getEditsFromContent(
   content: string,
 ): Promise<EditRecord[]> {
@@ -65,6 +74,6 @@ JSON array of edits:`;
       impactPrediction:
         typeof x.impactPrediction === "string" ? x.impactPrediction : undefined,
       sources: Array.isArray(x.sources) ? x.sources.map(String) : undefined,
-      userAction: null as const,
+      userAction: null,
     }));
 }

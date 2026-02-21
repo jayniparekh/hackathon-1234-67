@@ -1,7 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Star, Copy, Eye } from "lucide-react";
+import {
+  Star,
+  Copy,
+  Eye,
+  FileText,
+  Bird,
+  CurrencyDollar,
+  FilmStrip,
+  Envelope,
+  Briefcase,
+  ChartBar,
+  Newspaper,
+} from "@phosphor-icons/react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -23,7 +35,7 @@ const TEMPLATES = [
     title: "SEO-Optimized Blog Post",
     category: "Blog Posts",
     description: "Long-form blog optimized for search with structure and keywords",
-    icon: "📝",
+    Icon: FileText,
     rating: 4.8,
     uses: 2341,
     preview: "Write engaging blog posts with built-in SEO optimization...",
@@ -33,7 +45,7 @@ const TEMPLATES = [
     title: "Viral Tweet Thread",
     category: "Tweets",
     description: "Create engaging tweet threads that drive engagement",
-    icon: "🐦",
+    Icon: Bird,
     rating: 4.9,
     uses: 5420,
     preview: "Start strong, hook readers, build anticipation...",
@@ -43,7 +55,7 @@ const TEMPLATES = [
     title: "Product Ad Copy",
     category: "Ad Copy",
     description: "High-converting ad copy for social and paid campaigns",
-    icon: "💰",
+    Icon: CurrencyDollar,
     rating: 4.7,
     uses: 3120,
     preview: "Headline + benefit + CTA structured for maximum conversions...",
@@ -53,7 +65,7 @@ const TEMPLATES = [
     title: "YouTube Script",
     category: "Scripts",
     description: "Structured scripts for video content with engagement hooks",
-    icon: "🎬",
+    Icon: FilmStrip,
     rating: 4.6,
     uses: 1890,
     preview: "Hook + intro + main content + call-to-action...",
@@ -63,7 +75,7 @@ const TEMPLATES = [
     title: "Newsletter Edition",
     category: "Email",
     description: "Curated newsletter with story + insights + CTA",
-    icon: "📧",
+    Icon: Envelope,
     rating: 4.8,
     uses: 1650,
     preview: "Opening story + 3 insights + tool recommendation + sign-off...",
@@ -73,7 +85,7 @@ const TEMPLATES = [
     title: "LinkedIn Post",
     category: "LinkedIn",
     description: "Professional thought leadership posts",
-    icon: "💼",
+    Icon: Briefcase,
     rating: 4.7,
     uses: 3800,
     preview: "Hook question + story + lesson + CTA for engagement...",
@@ -83,7 +95,7 @@ const TEMPLATES = [
     title: "Case Study",
     category: "Blog Posts",
     description: "In-depth case study with results and methodology",
-    icon: "📊",
+    Icon: ChartBar,
     rating: 4.9,
     uses: 892,
     preview: "Situation + challenge + solution + results + lessons...",
@@ -93,7 +105,7 @@ const TEMPLATES = [
     title: "Press Release",
     category: "Press Release",
     description: "Professional press release format",
-    icon: "📰",
+    Icon: Newspaper,
     rating: 4.5,
     uses: 567,
     preview: "Headline + dateline + summary + quotes + boilerplate...",
@@ -176,16 +188,19 @@ export default function TemplatesPage() {
                 className="border-2 border-border bg-secondary-background p-6 transition-all hover:border-main hover:shadow-lg"
               >
                 <div className="flex items-start justify-between">
-                  <div className="text-4xl">{template.icon}</div>
+                  <div className="flex h-10 w-10 items-center justify-center text-main">
+                    <template.Icon size={32} weight="duotone" />
+                  </div>
                   <button
                     onClick={() => toggleFavorite(template.id)}
                     className="transition-transform hover:scale-110"
                   >
                     <Star
                       size={20}
+                      weight={favorites.includes(template.id) ? "fill" : "regular"}
                       className={`${
                         favorites.includes(template.id)
-                          ? "fill-amber-400 text-amber-400"
+                          ? "text-amber-400"
                           : "text-foreground/40"
                       }`}
                     />
@@ -205,8 +220,9 @@ export default function TemplatesPage() {
                 </div>
                 <div className="mt-4 flex items-center justify-between">
                   <div className="flex items-center gap-1">
-                    <span className="text-sm font-semibold text-amber-500">
-                      ★ {template.rating}
+                    <span className="flex items-center gap-1 text-sm font-semibold text-amber-500">
+                      <Star size={14} weight="fill" />
+                      {template.rating}
                     </span>
                     <span className="text-xs text-foreground/50">
                       ({template.uses} uses)
@@ -217,10 +233,10 @@ export default function TemplatesPage() {
                   <Button
                     className="flex-1 border-2 border-border bg-background text-foreground hover:bg-main hover:text-main-foreground rounded-lg"
                   >
-                    <Eye size={16} className="mr-1" /> Preview
+                    <Eye size={16} weight="duotone" className="mr-1" /> Preview
                   </Button>
                   <Button className="flex-1 rounded-lg border-2 border-main bg-main text-main-foreground hover:shadow-lg">
-                    <Copy size={16} className="mr-1" /> Use
+                    <Copy size={16} weight="duotone" className="mr-1" /> Use
                   </Button>
                 </div>
               </Card>

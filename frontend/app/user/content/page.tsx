@@ -1,16 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, Link as LinkIcon, FileText, Volume2, Play, Plus } from "lucide-react";
+import {
+  UploadSimple,
+  Link as LinkIcon,
+  FileText,
+  SpeakerHigh,
+  Play,
+  Plus,
+  Lightbulb,
+  Paperclip,
+  Pencil,
+  ArrowsClockwise,
+  Check,
+} from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
 const OUTPUT_FORMATS = [
-  { id: "text", label: "Text", icon: "📝" },
-  { id: "audio", label: "Audio", icon: "🎙️" },
-  { id: "video", label: "Video Script", icon: "🎬" },
+  { id: "text", label: "Text", Icon: FileText },
+  { id: "audio", label: "Audio", Icon: SpeakerHigh },
+  { id: "video", label: "Video Script", Icon: Play },
 ];
 
 const CONTENT_TYPES = [
@@ -63,19 +75,20 @@ export default function ContentPage() {
             </label>
             <div className="flex gap-2">
               {[
-                { id: "text", label: "💡 Idea", icon: "text" },
-                { id: "url", label: "🔗 URL", icon: "url" },
-                { id: "file", label: "📎 File", icon: "file" },
+                { id: "text", label: "Idea", Icon: Lightbulb },
+                { id: "url", label: "URL", Icon: LinkIcon },
+                { id: "file", label: "File", Icon: Paperclip },
               ].map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex-1 rounded-lg border-2 px-4 py-2 text-sm font-semibold transition-all ${
+                  onClick={() => setActiveTab(tab.id as "text" | "url" | "file")}
+                  className={`flex flex-1 items-center justify-center gap-2 rounded-lg border-2 px-4 py-2 text-sm font-semibold transition-all ${
                     activeTab === tab.id
                       ? "border-main bg-main text-main-foreground"
                       : "border-border bg-background text-foreground hover:bg-secondary-background"
                   }`}
                 >
+                  <tab.Icon size={18} weight="duotone" />
                   {tab.label}
                 </button>
               ))}
@@ -110,7 +123,7 @@ export default function ContentPage() {
                   className="border-2 border-border"
                 />
                 <Button className="border-2 border-main bg-main text-main-foreground rounded-lg ">
-                  <LinkIcon size={16} />
+                  <LinkIcon size={16} weight="duotone" />
                 </Button>
               </div>
               <p className="mt-2 text-xs text-foreground/50">
@@ -125,7 +138,7 @@ export default function ContentPage() {
                 Upload File
               </label>
               <div className="rounded-lg border-2 border-dashed border-border bg-background p-8 text-center">
-                <Upload className="mx-auto mb-2 text-main" size={32} />
+                <UploadSimple className="mx-auto mb-2 text-main" size={32} weight="duotone" />
                 <p className="text-sm font-semibold text-foreground">
                   Drop file or click to upload
                 </p>
@@ -144,13 +157,14 @@ export default function ContentPage() {
                 <button
                   key={format.id}
                   onClick={() => setSelectedFormat(format.id)}
-                  className={`rounded-lg border-2 px-3 py-2 text-sm font-semibold transition-all ${
+                  className={`flex items-center gap-2 rounded-lg border-2 px-3 py-2 text-sm font-semibold transition-all ${
                     selectedFormat === format.id
                       ? "border-main bg-main text-main-foreground"
                       : "border-border bg-background text-foreground hover:bg-secondary-background"
                   }`}
                 >
-                  {format.icon} {format.label}
+                  <format.Icon size={18} weight="duotone" />
+                  {format.label}
                 </button>
               ))}
             </div>
@@ -185,7 +199,7 @@ export default function ContentPage() {
             disabled={isGenerating || (!inputText && !inputUrl)}
             className="w-full rounded-lg border-2 border-main bg-main py-4 text-main-foreground font-bold hover:shadow-lg disabled:opacity-50"
           >
-            <Plus size={18} className="mr-2" />
+            <Plus size={18} weight="duotone" className="mr-2" />
             {isGenerating ? "Generating..." : "Generate Content"}
           </Button>
         </div>
@@ -212,15 +226,18 @@ export default function ContentPage() {
           {generatedContent && (
             <div className="mt-6 space-y-3">
               <div className="grid grid-cols-2 gap-2">
-                <Button className="rounded-lg border-2 border-border bg-background text-foreground hover:bg-main hover:text-main-foreground">
-                  ✏️ Edit
+                <Button className="flex items-center gap-2 rounded-lg border-2 border-border bg-background text-foreground hover:bg-main hover:text-main-foreground">
+                  <Pencil size={16} weight="duotone" />
+                  Edit
                 </Button>
-                <Button className="rounded-lg border-2 border-border bg-background text-foreground hover:bg-main hover:text-main-foreground">
-                  🔄 Regenerate
+                <Button className="flex items-center gap-2 rounded-lg border-2 border-border bg-background text-foreground hover:bg-main hover:text-main-foreground">
+                  <ArrowsClockwise size={16} weight="duotone" />
+                  Regenerate
                 </Button>
               </div>
-              <Button className="w-full rounded-lg border-2 border-main bg-main text-main-foreground font-semibold hover:shadow-lg">
-                ✓ Use This Content
+              <Button className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-main bg-main text-main-foreground font-semibold hover:shadow-lg">
+                <Check size={16} weight="bold" />
+                Use This Content
               </Button>
             </div>
           )}

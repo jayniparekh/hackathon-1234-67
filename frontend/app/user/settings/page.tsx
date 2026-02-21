@@ -5,15 +5,23 @@ import {
   User,
   Palette,
   Key,
-  Zap,
-  Save,
+  Lightning,
+  FloppyDisk,
   Copy,
   Eye,
-  EyeOff,
+  EyeSlash,
   Plus,
-  Trash2,
+  Trash,
   Check,
-} from "lucide-react";
+  Sparkle,
+  Link,
+  Robot,
+  Camera,
+  MusicNotes,
+  Bird,
+  Briefcase,
+  ChatCircle,
+} from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -27,19 +35,19 @@ import {
 } from "@/components/ui/select";
 
 const SOCIAL_PLATFORMS = [
-  { id: "twitter", name: "Twitter", icon: "𝕏", connected: true },
-  { id: "linkedin", name: "LinkedIn", icon: "in", connected: true },
-  { id: "instagram", name: "Instagram", icon: "📷", connected: false },
-  { id: "facebook", name: "Facebook", icon: "f", connected: false },
-  { id: "tiktok", name: "TikTok", icon: "♪", connected: false },
+  { id: "twitter", name: "Twitter", Icon: Bird, connected: true },
+  { id: "linkedin", name: "LinkedIn", Icon: Briefcase, connected: true },
+  { id: "instagram", name: "Instagram", Icon: Camera, connected: false },
+  { id: "facebook", name: "Facebook", Icon: ChatCircle, connected: false },
+  { id: "tiktok", name: "TikTok", Icon: MusicNotes, connected: false },
 ];
 
 const SECTIONS = [
-  { id: "account", label: "Profile", icon: "👤" },
-  { id: "brand", label: "Brand Voice", icon: "✨" },
-  { id: "social", label: "Social Accounts", icon: "🔗" },
-  { id: "api", label: "API Keys", icon: "🔑" },
-  { id: "models", label: "Model Config", icon: "🤖" },
+  { id: "account", label: "Profile", Icon: User },
+  { id: "brand", label: "Brand Voice", Icon: Sparkle },
+  { id: "social", label: "Social Accounts", Icon: Link },
+  { id: "api", label: "API Keys", Icon: Key },
+  { id: "models", label: "Model Config", Icon: Robot },
 ];
 
 export default function SettingsPage() {
@@ -77,13 +85,13 @@ export default function SettingsPage() {
               <button
                 key={section.id}
                 onClick={() => setActiveSection(section.id)}
-                className={`w-full rounded-lg border-2 px-4 py-3 text-left text-sm font-semibold transition-all ${
+                className={`flex w-full items-center gap-2 rounded-lg border-2 px-4 py-3 text-left text-sm font-semibold transition-all ${
                   activeSection === section.id
                     ? "border-main bg-main text-main-foreground"
                     : "border-border bg-background text-foreground hover:bg-background"
                 }`}
               >
-                <span className="mr-2">{section.icon}</span>
+                <section.Icon size={18} weight="duotone" />
                 {section.label}
               </button>
             ))}
@@ -97,7 +105,7 @@ export default function SettingsPage() {
             <div className="max-w-2xl space-y-6">
               <Card className="border-2 border-border bg-secondary-background p-6">
                 <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
-                  <User size={20} /> Profile Information
+                  <User size={20} weight="duotone" /> Profile Information
                 </h2>
                 <div className="space-y-4">
                   <div>
@@ -156,7 +164,7 @@ export default function SettingsPage() {
             <div className="max-w-2xl space-y-6">
               <Card className="border-2 border-border bg-secondary-background p-6">
                 <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
-                  <Palette size={20} /> Brand Voice Configuration
+                  <Palette size={20} weight="duotone" /> Brand Voice Configuration
                 </h2>
                 <div className="space-y-4">
                   <div>
@@ -211,7 +219,8 @@ export default function SettingsPage() {
             <div className="max-w-2xl space-y-6">
               <Card className="border-2 border-border bg-secondary-background p-6">
                 <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
-                  🔗 Connected Accounts
+                  <Link size={20} weight="duotone" />
+                  Connected Accounts
                 </h2>
                 <div className="space-y-3">
                   {SOCIAL_PLATFORMS.map((platform) => (
@@ -220,7 +229,9 @@ export default function SettingsPage() {
                       className="flex items-center justify-between rounded-lg border-2 border-border bg-background p-4"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="text-2xl">{platform.icon}</div>
+                        <div className="flex h-10 w-10 items-center justify-center text-foreground">
+                          <platform.Icon size={24} weight="duotone" />
+                        </div>
                         <div>
                           <p className="font-semibold text-foreground">
                             {platform.name}
@@ -253,7 +264,7 @@ export default function SettingsPage() {
             <div className="max-w-2xl space-y-6">
               <Card className="border-2 border-border bg-secondary-background p-6">
                 <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
-                  <Key size={20} /> API Keys
+                  <Key size={20} weight="duotone" /> API Keys
                 </h2>
                 <p className="mb-4 text-sm text-foreground/70">
                   Use your API key to integrate ContentForge with your own
@@ -277,13 +288,13 @@ export default function SettingsPage() {
                         className="rounded-lg border-2 border-border p-2 hover:bg-secondary-background"
                       >
                         {showApiKey ? (
-                          <EyeOff size={16} className="text-foreground" />
+                          <EyeSlash size={16} weight="duotone" className="text-foreground" />
                         ) : (
-                          <Eye size={16} className="text-foreground" />
+                          <Eye size={16} weight="duotone" className="text-foreground" />
                         )}
                       </button>
                       <button className="rounded-lg border-2 border-border p-2 hover:bg-secondary-background">
-                        <Copy size={16} className="text-foreground" />
+                        <Copy size={16} weight="duotone" className="text-foreground" />
                       </button>
                     </div>
                   </div>
@@ -318,7 +329,7 @@ export default function SettingsPage() {
             <div className="max-w-2xl space-y-6">
               <Card className="border-2 border-border bg-secondary-background p-6">
                 <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
-                  <Zap size={20} /> Model Fine-Tuning
+                  <Lightning size={20} weight="duotone" /> Model Fine-Tuning
                 </h2>
                 <div className="space-y-4">
                   <div>
@@ -382,7 +393,7 @@ export default function SettingsPage() {
           <div className="fixed bottom-8 right-8">
             {savedAlert && (
               <div className="mb-2 flex items-center gap-2 rounded-lg bg-green-600 px-4 py-3 text-white shadow-lg">
-                <Check size={18} />
+                <Check size={18} weight="bold" />
                 Saved successfully!
               </div>
             )}
@@ -391,7 +402,7 @@ export default function SettingsPage() {
               disabled={isSaving}
               className="rounded-lg border-2 border-main bg-main px-6 py-4 text-main-foreground font-bold hover:shadow-lg disabled:opacity-50"
             >
-              <Save size={18} className="mr-2" />
+              <FloppyDisk size={18} weight="duotone" className="mr-2" />
               {isSaving ? "Saving..." : "Save Changes"}
             </Button>
           </div>

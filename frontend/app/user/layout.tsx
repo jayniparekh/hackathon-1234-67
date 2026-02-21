@@ -2,15 +2,25 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  Gear,
+  Layout,
+  Megaphone,
+  FileText,
+  MagicWand,
+  ChartLineUp,
+  Microphone,
+} from "@phosphor-icons/react";
 
 const navConfig = [
-  { href: "/user/dashboard", label: "Dashboard" },
-  { href: "/user/content", label: "Content" },
-  { href: "/user/enhance", label: "Enhance" },
-  { href: "/user/distribute", label: "Distribute" },
-  { href: "/user/templates", label: "Templates" },
-  { href: "/user/analytics", label: "Analytics" },
-  { href: "/user/settings", label: "Settings" },
+  { href: "/user/dashboard", label: "Dashboard", Icon: Layout },
+  { href: "/user/content", label: "Content", Icon: FileText },
+  { href: "/user/enhance", label: "Enhance", Icon: MagicWand },
+  { href: "/user/distribute", label: "Distribute", Icon: Megaphone },
+  { href: "/user/templates", label: "Templates", Icon: FileText },
+  { href: "/user/analytics", label: "Analytics", Icon: ChartLineUp },
+  { href: "/user/brand-voice", label: "Brand Voice", Icon: Microphone },
+  { href: "/user/settings", label: "Settings", Icon: Gear },
 ];
 
 export default function UserLayout({
@@ -32,15 +42,17 @@ export default function UserLayout({
           </Link>
           {navConfig.map((item) => {
             const isActive = pathname === item.href;
+            const Icon = item.Icon;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-[var(--radius-base)] border-2 px-3 py-2 text-sm font-semibold shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${isActive
+                className={`flex items-center gap-2 rounded-[var(--radius-base)] border-2 px-3 py-2 text-sm font-semibold shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${isActive
                     ? "border-border bg-main text-main-foreground"
                     : "border-border bg-background text-foreground"
                   }`}
               >
+                <Icon size={18} weight="duotone" />
                 {item.label}
               </Link>
             );
