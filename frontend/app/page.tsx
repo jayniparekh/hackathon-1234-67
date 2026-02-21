@@ -16,6 +16,12 @@ export default function Home() {
               Sign in
             </Link>
             <Link
+              href="/auth/signup"
+              className="rounded-[var(--radius-base)] border-2 border-border bg-background px-4 py-2 font-semibold text-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+            >
+              Sign up
+            </Link>
+            <Link
               href="/user/dashboard"
               className="rounded-[var(--radius-base)] border-2 border-border bg-background px-4 py-2 font-semibold text-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
             >
@@ -37,7 +43,7 @@ export default function Home() {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
-                href="/user/dashboard"
+                href="/auth/signup"
                 className="inline-block rounded-[var(--radius-base)] border-2 border-border bg-main px-6 py-3 font-semibold text-main-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
               >
                 Get started
