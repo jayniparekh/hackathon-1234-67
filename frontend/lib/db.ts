@@ -79,10 +79,10 @@ export type UserRecord = {
   niche?: "fitness" | "beauty" | "lifestyle";
   height?: string;
   education?: "" | "high-school" | "some-college" | "bachelors" | "masters" | "doctorate" | "trade-school";
-  occupation?: string;
+  contentGoal?: "Build Audience" | "Sell Product" | "Educate" | "Personal Brand" | "Drive Traffic" | "Other";
   religion?: "" | "agnostic" | "atheist" | "buddhist" | "christian" | "hindu" | "jewish" | "muslim" | "spiritual" | "other";
   drinkingHabits?: "" | "never" | "rarely" | "socially" | "regularly";
-  smokingHabits?: "" | "never" | "socially" | "regularly" | "trying-to-quit";
+  audienceGen?: "Gen Z" | "Millennials" | "Gen X" | "Boomers" | "Mixed";
   fitnessLevel?: "" | "not-active" | "occasionally" | "moderately" | "very" | "athlete";
   dietaryPreferences?: "" | "no-restrictions" | "vegetarian" | "vegan" | "pescatarian" | "kosher" | "halal" | "other";
   createdAt: Date;

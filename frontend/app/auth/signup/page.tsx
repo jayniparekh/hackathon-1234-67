@@ -30,10 +30,10 @@ export default function SignupPage() {
     niche: "",
     height: "",
     education: "",
-    occupation: "",
+    contentGoal: "",
     religion: "",
     drinkingHabits: "",
-    smokingHabits: "",
+    audienceGen: "",
     fitnessLevel: "",
     dietaryPreferences: "",
   });
@@ -96,10 +96,10 @@ export default function SignupPage() {
         niche: formData.niche || undefined,
         height: formData.height || undefined,
         education: formData.education || undefined,
-        occupation: formData.occupation || undefined,
+        contentGoal: formData.contentGoal || undefined,
         religion: formData.religion || undefined,
         drinkingHabits: formData.drinkingHabits || undefined,
-        smokingHabits: formData.smokingHabits || undefined,
+        audienceGen: formData.audienceGen || undefined,
         fitnessLevel: formData.fitnessLevel || undefined,
         dietaryPreferences: formData.dietaryPreferences || undefined,
       };
@@ -185,7 +185,7 @@ export default function SignupPage() {
                       placeholder="John Doe"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="mt-2"
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
                     />
                   </div>
 
@@ -200,7 +200,7 @@ export default function SignupPage() {
                       placeholder="johndoe"
                       value={formData.username}
                       onChange={handleInputChange}
-                      className="mt-2"
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
                     />
                   </div>
 
@@ -215,7 +215,7 @@ export default function SignupPage() {
                       placeholder="john@example.com"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="mt-2"
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
                     />
                   </div>
 
@@ -230,7 +230,7 @@ export default function SignupPage() {
                       placeholder="At least 8 characters"
                       value={formData.password}
                       onChange={handleInputChange}
-                      className="mt-2"
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
                     />
                   </div>
 
@@ -245,7 +245,7 @@ export default function SignupPage() {
                       placeholder="Confirm your password"
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
-                      className="mt-2"
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
                     />
                   </div>
 
@@ -298,6 +298,7 @@ export default function SignupPage() {
                         onChange={handleInputChange}
                         min="13"
                         max="150"
+                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
                       />
                     </div>
                   </div>
@@ -313,6 +314,7 @@ export default function SignupPage() {
                       placeholder="New York, USA"
                       value={formData.location}
                       onChange={handleInputChange}
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
                     />
                   </div>
 
@@ -346,6 +348,7 @@ export default function SignupPage() {
                         placeholder="5&apos;10&quot;"
                         value={formData.height}
                         onChange={handleInputChange}
+                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
                       />
                     </div>
                   </div>
@@ -373,17 +376,24 @@ export default function SignupPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="occupation" className="text-foreground">
-                        Occupation
+                      <Label htmlFor="contentGoal" className="text-foreground">
+                        Content Goal
                       </Label>
-                      <Input
-                        id="occupation"
-                        name="occupation"
-                        type="text"
-                        placeholder="Software Engineer"
-                        value={formData.occupation}
+                      <select
+                        id="contentGoal"
+                        name="contentGoal"
+                        value={formData.contentGoal}
                         onChange={handleInputChange}
-                      />
+                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      >
+                        <option value="">Select...</option>
+                        <option value="Build Audience">Build Audience</option>
+                        <option value="Sell Product">Sell Product</option>
+                        <option value="Educate">Educate</option>
+                        <option value="Personal Brand">Personal Brand</option>
+                        <option value="Drive Traffic">Drive Traffic</option>
+                        <option value="Other">Other</option>
+                      </select>
                     </div>
                   </div>
 
@@ -434,21 +444,22 @@ export default function SignupPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="smokingHabits" className="text-foreground">
-                        Smoking Habits
+                      <Label htmlFor="audienceGen" className="text-foreground">
+                        Target Audience Generation
                       </Label>
                       <select
-                        id="smokingHabits"
-                        name="smokingHabits"
-                        value={formData.smokingHabits}
+                        id="audienceGen"
+                        name="audienceGen"
+                        value={formData.audienceGen}
                         onChange={handleInputChange}
                         className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
                       >
                         <option value="">Select...</option>
-                        <option value="never">Never</option>
-                        <option value="socially">Socially</option>
-                        <option value="regularly">Regularly</option>
-                        <option value="trying-to-quit">Trying to Quit</option>
+                        <option value="Gen Z">Gen Z</option>
+                        <option value="Millennials">Millennials</option>
+                        <option value="Gen X">Gen X</option>
+                        <option value="Boomers">Boomers</option>
+                        <option value="Mixed">Mixed</option>
                       </select>
                     </div>
 
