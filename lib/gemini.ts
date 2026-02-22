@@ -131,3 +131,73 @@ No markdown, no code fence. JSON only.`;
     reelConcept: typeof raw?.reelConcept === "string" ? raw.reelConcept : "",
   };
 }
+
+export type CalendarItem = {
+  platform: string;
+  title: string;
+  description: string;
+  contentLength?: string;
+  contentType?: string;
+};
+
+export type CalendarDay = {
+  date: string;
+  items: CalendarItem[];
+};
+
+export type ContentCalendarInput = {
+  niche?: string;
+  platforms?: string[];
+  postingFrequency?: string;
+  contentLengthPreference?: string;
+  audienceGen?: string;
+  audiencePlatforms?: string;
+  contentTypes?: string[];
+  contentGoal?: string;
+  experienceLevel?: string;
+};
+
+export async function generateContentCalendar(input: ContentCalendarInput): Promise<CalendarDay[]> {
+  if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is not set");
+  const start = new Date();
+  const days: string[] = [];
+  for (let i = 0; i < 15; i++) {
+    const d = new Date(start);
+    d.setDate(d.getDate() + i);
+    days.push(d.toISOString().slice(0, 10));
+  }
+  const context = [
+    input.niche && `Niche: ${input.niche}`,
+    input.platforms?.length && `Platforms: ${input.platforms.join(", ")}`,
+    input.postingFrequency && `Posting frequency: ${input.postingFrequency} per week`,
+    input.contentLengthPreference && `Content length: ${input.contentLengthPreference}`,
+    input.audienceGen && `Target audience: ${input.audienceGen}`,
+    input.audiencePlatforms && `Audience platforms: ${input.audiencePlatforms}`,
+    input.contentTypes?.length && `Content types: ${input.contentTypes.join(", ")}`,
+    input.contentGoal && `Goal: ${input.contentGoal}`,
+    input.experienceLevel && `Experience: ${input.experienceLevel}`,
+  ]
+    .filter(Boolean)
+    .join(". ");
+  const prompt = `You are an expert content strategist. Create a 15-day content calendar for a creator with these details: ${context || "General creator (use sensible defaults)."}
+
+Generate exactly 15 days starting from ${days[0]}. Each day must have a "date" (YYYY-MM-DD) and "items" (array of content pieces). For each item include: "platform", "title", "description", and optionally "contentLength" and "contentType". Respect posting frequency: if it's "1-2" do 1-2 posts per week spread across days; "3-5" means 3-5 per week; "daily" means at least one per day; "multiple" means multiple per day. Spread content across the creator's platforms. Tailor topics to their niche and audience.
+
+Output ONLY a valid JSON array of 15 objects. Each object: { "date": "YYYY-MM-DD", "items": [ { "platform": "...", "title": "...", "description": "..." } ] }. No markdown, no code fence.`;
+  const raw = await generateJSON<CalendarDay[]>(prompt);
+  if (!Array.isArray(raw) || raw.length === 0) {
+    return days.map((date) => ({ date, items: [] }));
+  }
+  return raw.slice(0, 15).map((day) => ({
+    date: typeof day?.date === "string" ? day.date : "",
+    items: Array.isArray(day?.items)
+      ? day.items.map((item: Record<string, unknown>) => ({
+          platform: String(item?.platform ?? ""),
+          title: String(item?.title ?? ""),
+          description: String(item?.description ?? ""),
+          contentLength: item?.contentLength != null ? String(item.contentLength) : undefined,
+          contentType: item?.contentType != null ? String(item.contentType) : undefined,
+        }))
+      : [],
+  }));
+}

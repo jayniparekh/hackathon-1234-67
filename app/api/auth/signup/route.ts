@@ -22,6 +22,7 @@ const signupSchema = z.object({
   experienceLevel: z.enum(["Beginner", "Intermediate", "Expert"]).optional(),
   contentTypes: z.array(z.string()).optional(),
   contentGoal: z.enum(["Build Audience", "Sell Product", "Educate", "Personal Brand", "Drive Traffic", "Other"]).optional(),
+  postingFrequency: z.enum(["1-2", "3-5", "daily", "multiple"]).optional(),
   // Audience & Preferences
   audienceGen: z.enum(["Gen Z", "Millennials", "Gen X", "Boomers", "Mixed"]).optional(),
   audiencePlatforms: z.string().optional(),
@@ -91,6 +92,7 @@ export async function POST(request: Request) {
       experienceLevel: userData.experienceLevel,
       contentTypes: userData.contentTypes,
       contentGoal: userData.contentGoal,
+      postingFrequency: userData.postingFrequency,
       // Audience & Preferences
       audienceGen: userData.audienceGen,
       audiencePlatforms: userData.audiencePlatforms,

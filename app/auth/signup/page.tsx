@@ -35,6 +35,7 @@ export default function SignupPage() {
     experienceLevel: "",
     contentTypes: [] as string[],
     contentGoal: "",
+    postingFrequency: "",
     // Audience & Preferences
     audienceGen: "",
     audiencePlatforms: "" as string,
@@ -116,6 +117,7 @@ export default function SignupPage() {
         experienceLevel: formData.experienceLevel || undefined,
         contentTypes: formData.contentTypes.length > 0 ? formData.contentTypes : undefined,
         contentGoal: formData.contentGoal || undefined,
+        postingFrequency: formData.postingFrequency || undefined,
         audienceGen: formData.audienceGen || undefined,
         audiencePlatforms: formData.audiencePlatforms || undefined,
         contentLengthPreference: formData.contentLengthPreference || undefined,
@@ -516,6 +518,25 @@ export default function SignupPage() {
                       <option value="Personal Brand">Personal Brand</option>
                       <option value="Drive Traffic">Drive Traffic</option>
                       <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="postingFrequency" className="text-foreground">
+                      Posting Frequency (per week)
+                    </Label>
+                    <select
+                      id="postingFrequency"
+                      name="postingFrequency"
+                      value={formData.postingFrequency}
+                      onChange={handleInputChange}
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                    >
+                      <option value="">Select...</option>
+                      <option value="1-2">1–2 posts</option>
+                      <option value="3-5">3–5 posts</option>
+                      <option value="daily">Daily</option>
+                      <option value="multiple">Multiple per day</option>
                     </select>
                   </div>
 

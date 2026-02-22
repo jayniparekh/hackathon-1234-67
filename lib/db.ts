@@ -85,6 +85,7 @@ export type UserRecord = {
   experienceLevel?: "Beginner" | "Intermediate" | "Expert";
   contentTypes?: string[];
   contentGoal?: "Build Audience" | "Sell Product" | "Educate" | "Personal Brand" | "Drive Traffic" | "Other";
+  postingFrequency?: "1-2" | "3-5" | "daily" | "multiple";
   // Audience & Preferences
   audienceGen?: "Gen Z" | "Millennials" | "Gen X" | "Boomers" | "Mixed";
   audiencePlatforms?: string;

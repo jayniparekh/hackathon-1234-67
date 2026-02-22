@@ -14,6 +14,7 @@ import {
   SignOut,
   PencilLine,
   TrendUp,
+  CalendarBlank,
 } from "@phosphor-icons/react";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
@@ -27,6 +28,7 @@ const navConfig = [
   { href: "/user/brand-voice", label: "Brand Voice", Icon: Microphone },
   { href: "/user/live-editor", label: "Live Editor", Icon: PencilLine },
   { href: "/user/strategy-hub", label: "Strategy Hub", Icon: TrendUp },
+  { href: "/user/content-calendar", label: "Content Calendar", Icon: CalendarBlank },
   { href: "/user/settings", label: "Settings", Icon: Gear },
 ];
 
