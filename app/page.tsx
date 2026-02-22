@@ -12,10 +12,15 @@ export default function Home() {
     <div className="relative w-full">
       <LiquidGradient 
         title=""
-        showPauseButton={true}
+        showPauseButton={false}
         ctaText=""
         onCtaClick={() => {}}
       />
+      <style>{`
+        .footer-main {
+          display: none !important;
+        }
+      `}</style>
       
       {/* Header overlay */}
       <header className="absolute top-0 z-50 w-full border-b border-white/20 bg-black/20 px-6 py-4 backdrop-blur-md">

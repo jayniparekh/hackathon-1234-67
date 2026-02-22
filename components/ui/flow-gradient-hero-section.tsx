@@ -331,14 +331,6 @@ export default function LiquidGradient({
         {title}
       </h1>
 
-      {/* CTA Button */}
-      <button 
-        className={`cta-btn ${isDarkMode ? 'dark' : ''}`}
-        onClick={onCtaClick}
-      >
-        {ctaText}
-      </button>
-
       {/* Pause/Play Button */}
       {showPauseButton && (
         <button

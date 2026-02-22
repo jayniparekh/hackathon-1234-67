@@ -34,14 +34,14 @@ function AnimatedHero({ rotatingTitles }: AnimatedHeroProps) {
       <div className="container mx-auto">
         <div className="flex gap-8 py-20 lg:py-40 items-center justify-center flex-col">
           <div className="flex gap-4 flex-col">
-            <h1 className="text-5xl md:text-7xl max-w-2xl tracking-tighter text-center font-regular">
+            <h1 className="text-8xl md:text-8xl max-w-2xl tracking-tighter text-center font-regular">
               <span className="text-white">CORTEX</span>
               <span className="relative flex w-full justify-center overflow-hidden text-center md:pb-4 md:pt-1">
                 &nbsp;
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
-                    className="absolute font-semibold text-white text-5xl md:text-7xl"
+                    className="absolute font-semibold text-white text-5xl md:text-6xl"
                     initial={{ opacity: 0, y: "-100" }}
                     transition={{ type: "spring", stiffness: 50 }}
                     animate={
@@ -80,6 +80,7 @@ function AnimatedHero({ rotatingTitles }: AnimatedHeroProps) {
             <Button 
               size="lg" 
               className="gap-4"
+              variant="outline"
               onClick={() => router.push('/auth/signup')}
             >
               Sign up here <MoveRight className="w-4 h-4" />
