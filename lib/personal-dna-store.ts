@@ -14,7 +14,7 @@ export interface StyleDNA {
     ellipsis_usage: number;             // ellipsis per sentence
     caps_frequency: number;             // % of words in ALL CAPS
 
-    // Qualitative signals (Gemini-extracted)
+    // Qualitative signals (AI-extracted)
     opener_style: "question" | "emoji-first" | "statement" | "hashtag" | "mixed";
     humor_style: "self-deprecating" | "dry" | "sarcastic" | "wholesome" | "none";
     vocab_complexity: "simple" | "everyday" | "expressive" | "literary";

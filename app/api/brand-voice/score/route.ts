@@ -3,7 +3,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { generateJSON } from "@/lib/gemini";
+import { generateJSON } from "@/lib/ai";
 import { profileStore } from "@/lib/brand-voice-store";
 
 interface ScoreResult {

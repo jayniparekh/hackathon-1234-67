@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { CalendarBlank, Lightning, CaretDown, CaretRight } from "@phosphor-icons/react";
-import type { CalendarDay } from "@/lib/gemini";
+import type { CalendarDay } from "@/lib/ai";
 
 async function fetchProfile(): Promise<Record<string, unknown> | null> {
   const res = await fetch("/api/user/profile");

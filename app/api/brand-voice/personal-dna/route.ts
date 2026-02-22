@@ -4,7 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { generateJSON } from "@/lib/gemini";
+import { generateJSON } from "@/lib/ai";
 import { personalDNAStore, type StyleDNA } from "@/lib/personal-dna-store";
 
 interface ContentInput {
@@ -45,7 +45,7 @@ Compute these signals yourself from the text:
 - caps_frequency: fraction of words in ALL CAPS (0.0-1.0)
 - dna_score_baseline: how consistent is this person's style across samples? (0-100)
 
-Use Gemini judgment for these:
+Use model judgment for these:
 - opener_style: one of "question" | "emoji-first" | "statement" | "hashtag" | "mixed"
 - humor_style: one of "self-deprecating" | "dry" | "sarcastic" | "wholesome" | "none"
 - vocab_complexity: one of "simple" | "everyday" | "expressive" | "literary"

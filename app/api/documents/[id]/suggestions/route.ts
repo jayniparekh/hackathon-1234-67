@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import { collections } from "@/lib/db";
-import { getEditsFromContent } from "@/lib/gemini";
+import { getEditsFromContent } from "@/lib/ai";
 
 export async function POST(
   request: Request,

@@ -3,7 +3,7 @@ import { ObjectId } from "mongodb";
 import { verifyToken } from "@/lib/jwt";
 import { cookies } from "next/headers";
 import { collections } from "@/lib/db";
-import { generateContentFromBrief } from "@/lib/gemini";
+import { generateContentFromBrief } from "@/lib/ai";
 
 export async function POST(request: Request) {
   try {

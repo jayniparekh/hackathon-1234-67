@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateStrategyFromTrend } from "@/lib/gemini";
+import { generateStrategyFromTrend } from "@/lib/ai";
 
 export async function POST(request: NextRequest) {
   try {

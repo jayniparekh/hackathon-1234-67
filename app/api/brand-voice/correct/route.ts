@@ -3,7 +3,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { generateJSON } from "@/lib/gemini";
+import { generateJSON } from "@/lib/ai";
 import { profileStore } from "@/lib/brand-voice-store";
 
 interface ScoreResult {
@@ -21,7 +21,7 @@ interface CorrectResult {
 }
 
 async function scoreText(text: string, profileJSON: string): Promise<number> {
-    const { generateJSON: gj } = await import("@/lib/gemini");
+    const { generateJSON: gj } = await import("@/lib/ai");
     const prompt = `You are a brand voice expert. Score the content below against this brand voice profile. Return ONLY valid JSON with schema: {"overall_match": <0-100>}
 
 BRAND VOICE PROFILE: ${profileJSON}

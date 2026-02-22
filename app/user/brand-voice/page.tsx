@@ -463,7 +463,7 @@ export default function BrandVoicePage() {
                             {building ? (
                                 <>
                                     <CircleNotch size={20} weight="bold" className="animate-spin" />
-                                    Extracting brand DNA via Gemini...
+                                    Extracting brand DNA via AI...
                                 </>
                             ) : (
                                 <>
@@ -608,7 +608,7 @@ export default function BrandVoicePage() {
                             {scoring ? (
                                 <>
                                     <CircleNotch size={20} weight="bold" className="animate-spin" />
-                                    Scoring via Gemini...
+                                    Scoring via AI...
                                 </>
                             ) : (
                                 <>
@@ -748,7 +748,7 @@ export default function BrandVoicePage() {
                             {correcting ? (
                                 <>
                                     <CircleNotch size={20} weight="bold" className="animate-spin" />
-                                    Rewriting via Gemini...
+                                    Rewriting via AI...
                                 </>
                             ) : (
                                 <>
@@ -846,7 +846,7 @@ export default function BrandVoicePage() {
                                 <div>
                                     <h2 className="font-[family-name:var(--font-syne)] text-lg font-bold text-foreground">Personal Style DNA</h2>
                                     <p className="mt-0.5 text-sm text-foreground/60">
-                                        Paste your Instagram captions, diary entries, or WhatsApp messages → Gemini extracts your unique writing fingerprint → generate captions that sound exactly like <em>you</em>.
+                                        Paste your Instagram captions, diary entries, or WhatsApp messages → AI extracts your unique writing fingerprint → generate captions that sound exactly like <em>you</em>.
                                     </p>
                                 </div>
                             </div>
@@ -938,7 +938,7 @@ export default function BrandVoicePage() {
                             className="flex w-full items-center justify-center gap-2 rounded-[var(--radius-base)] border-2 border-border bg-main px-6 py-3 font-bold text-main-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {extractingDNA ? (
-                                <><CircleNotch size={20} weight="bold" className="animate-spin" /> Extracting Style DNA via Gemini...</>
+                                <><CircleNotch size={20} weight="bold" className="animate-spin" /> Extracting Style DNA via AI...</>
                             ) : (
                                 <><UserCircle size={20} weight="duotone" /> Extract My Style DNA</>
                             )}
@@ -1041,7 +1041,7 @@ export default function BrandVoicePage() {
 
                                 {/* Style notes */}
                                 <div className="rounded-[var(--radius-base)] border-l-4 border-main bg-main/5 p-4">
-                                    <p className="text-xs font-bold uppercase tracking-wider text-foreground/40 mb-1">Gemini's Read on You</p>
+                                    <p className="text-xs font-bold uppercase tracking-wider text-foreground/40 mb-1">AI's Read on You</p>
                                     <p className="text-sm italic text-foreground/80">{extractedDNA.style_notes}</p>
                                 </div>
                             </div>
@@ -1122,7 +1122,7 @@ export default function BrandVoicePage() {
                                         className="flex w-full items-center justify-center gap-2 rounded-[var(--radius-base)] border-2 border-border bg-main px-6 py-3 font-bold text-main-foreground shadow-[var(--shadow)] transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
                                         {generatingCaption ? (
-                                            <><CircleNotch size={20} weight="bold" className="animate-spin" /> Generating + scoring via Gemini...</>
+                                            <><CircleNotch size={20} weight="bold" className="animate-spin" /> Generating + scoring via AI...</>
                                         ) : (
                                             <><Robot size={20} weight="duotone" /> Generate in My Voice</>
                                         )}

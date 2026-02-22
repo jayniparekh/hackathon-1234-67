@@ -4,7 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { generateJSON } from "@/lib/gemini";
+import { generateJSON } from "@/lib/ai";
 import { profileStore, BrandVoiceProfile } from "@/lib/brand-voice-store";
 
 export async function POST(req: NextRequest) {

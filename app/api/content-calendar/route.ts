@@ -3,7 +3,7 @@ import { ObjectId } from "mongodb";
 import { verifyToken } from "@/lib/jwt";
 import { cookies } from "next/headers";
 import { collections } from "@/lib/db";
-import { generateContentCalendar, type ContentCalendarInput } from "@/lib/gemini";
+import { generateContentCalendar, type ContentCalendarInput } from "@/lib/ai";
 
 export async function GET() {
   try {
