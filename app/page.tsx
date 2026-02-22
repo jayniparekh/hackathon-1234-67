@@ -3,17 +3,18 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Component as LiquidGradient } from "@/components/ui/flow-gradient-hero-section";
+import { AnimatedHero } from "@/components/ui/animated-hero";
 
 export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <LiquidGradient 
-        title="From Idea to Impact"
+        title=""
         showPauseButton={true}
-        ctaText="Get Started"
-        onCtaClick={() => router.push('/auth/signup')}
+        ctaText=""
+        onCtaClick={() => {}}
       />
       
       {/* Header overlay */}
@@ -44,6 +45,11 @@ export default function Home() {
           </nav>
         </div>
       </header>
+
+      {/* Animated Hero Content */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center">
+        <AnimatedHero />
+      </div>
     </div>
   );
 }
