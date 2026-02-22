@@ -14,6 +14,7 @@ import {
   ArrowsClockwise,
   Check,
 } from "@phosphor-icons/react";
+import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
@@ -41,16 +42,63 @@ export default function ContentPage() {
   const [selectedContentType, setSelectedContentType] = useState("blog");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedContent, setGeneratedContent] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const getInputForGenerate = async (): Promise<string> => {
+    if (activeTab === "url" && inputUrl.trim()) {
+      const res = await fetch("/api/content/extract-url", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: inputUrl.trim() }) });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d?.error ?? "Failed to extract URL");
+      }
+      const d = await res.json();
+      return (d?.text ?? "").trim();
+    }
+    return inputText.trim();
+  };
 
   const handleGenerate = async () => {
+    setError(null);
     setIsGenerating(true);
-    // Mock generation
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setGeneratedContent(
-      "Your AI-generated content will appear here with full customization options. The system analyzes your input, applies your brand voice, and generates polished output ready to publish."
-    );
-    setIsGenerating(false);
+    try {
+      const input = await getInputForGenerate();
+      if (!input) {
+        setError("Enter an idea, paste a URL, or upload a file.");
+        setIsGenerating(false);
+        return;
+      }
+      const res = await fetch("/api/content/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ input, contentType: selectedContentType, outputFormat: selectedFormat }),
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d?.error ?? "Generation failed");
+      }
+      const d = await res.json();
+      setGeneratedContent(d?.content ?? "");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Something went wrong");
+    } finally {
+      setIsGenerating(false);
+    }
   };
+
+  const handleUseContent = async () => {
+    if (!generatedContent) return;
+    setError(null);
+    try {
+      const res = await fetch("/api/documents", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ content: generatedContent }) });
+      if (!res.ok) throw new Error("Failed to create document");
+      const d = await res.json();
+      if (d?.id) window.location.href = `/user/live-editor/${d.id}`;
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to save");
+    }
+  };
+
+  const canGenerate = activeTab === "url" ? !!inputUrl.trim() : !!inputText.trim();
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -135,15 +183,23 @@ export default function ContentPage() {
           {activeTab === "file" && (
             <div>
               <label className="mb-2 block text-sm font-semibold text-foreground">
-                Upload File
+                Upload .txt file
               </label>
-              <div className="rounded-lg border-2 border-dashed border-border bg-background p-8 text-center">
+              <input
+                type="file"
+                accept=".txt"
+                className="hidden"
+                id="file-upload"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) f.text().then((t) => setInputText(t));
+                }}
+              />
+              <label htmlFor="file-upload" className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-border bg-background p-8">
                 <UploadSimple className="mx-auto mb-2 text-main" size={32} weight="duotone" />
-                <p className="text-sm font-semibold text-foreground">
-                  Drop file or click to upload
-                </p>
-                <p className="text-xs text-foreground/50">PDF, TXT, DOCX supported</p>
-              </div>
+                <p className="text-sm font-semibold text-foreground">Drop .txt or click to upload</p>
+                <p className="text-xs text-foreground/50">Content will be used as your brief</p>
+              </label>
             </div>
           )}
 
@@ -193,10 +249,10 @@ export default function ContentPage() {
             </div>
           </div>
 
-          {/* Generate Button */}
+          {error && <p className="text-sm text-red-600">{error}</p>}
           <Button
             onClick={handleGenerate}
-            disabled={isGenerating || (!inputText && !inputUrl)}
+            disabled={isGenerating || !canGenerate}
             className="w-full rounded-lg border-2 border-main bg-main py-4 text-main-foreground font-bold hover:shadow-lg disabled:opacity-50"
           >
             <Plus size={18} weight="duotone" className="mr-2" />
@@ -212,9 +268,9 @@ export default function ContentPage() {
             </h2>
             {generatedContent ? (
               <Card className="border-2 border-border bg-background p-6">
-                <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground">
-                  {generatedContent}
-                </p>
+                <div className="markdown-content text-sm leading-relaxed text-foreground [&_h1]:mb-2 [&_h1]:text-xl [&_h1]:font-bold [&_h2]:mb-2 [&_h2]:text-lg [&_h2]:font-semibold [&_h3]:mb-1 [&_h3]:text-base [&_h3]:font-semibold [&_p]:my-2 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-0.5 [&_strong]:font-semibold [&_a]:text-main [&_a]:underline">
+                  <ReactMarkdown>{generatedContent}</ReactMarkdown>
+                </div>
               </Card>
             ) : (
               <Card className="border-2 border-dashed border-border bg-background p-12 text-center">
@@ -225,17 +281,31 @@ export default function ContentPage() {
 
           {generatedContent && (
             <div className="mt-6 space-y-3">
+              {error && <p className="text-sm text-red-600">{error}</p>}
               <div className="grid grid-cols-2 gap-2">
-                <Button className="flex items-center gap-2 rounded-lg border-2 border-border bg-background text-foreground hover:bg-main hover:text-main-foreground">
+                <Button
+                  type="button"
+                  className="flex items-center gap-2 rounded-lg border-2 border-border bg-background text-foreground hover:bg-main hover:text-main-foreground"
+                  onClick={() => setGeneratedContent("")}
+                >
                   <Pencil size={16} weight="duotone" />
-                  Edit
+                  Clear
                 </Button>
-                <Button className="flex items-center gap-2 rounded-lg border-2 border-border bg-background text-foreground hover:bg-main hover:text-main-foreground">
+                <Button
+                  type="button"
+                  className="flex items-center gap-2 rounded-lg border-2 border-border bg-background text-foreground hover:bg-main hover:text-main-foreground"
+                  onClick={handleGenerate}
+                  disabled={isGenerating || !canGenerate}
+                >
                   <ArrowsClockwise size={16} weight="duotone" />
                   Regenerate
                 </Button>
               </div>
-              <Button className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-main bg-main text-main-foreground font-semibold hover:shadow-lg">
+              <Button
+                type="button"
+                className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-main bg-main text-main-foreground font-semibold hover:shadow-lg"
+                onClick={handleUseContent}
+              >
                 <Check size={16} weight="bold" />
                 Use This Content
               </Button>

@@ -201,3 +201,47 @@ Output ONLY a valid JSON array of 15 objects. Each object: { "date": "YYYY-MM-DD
       : [],
   }));
 }
+
+export type ContentGenerateContext = {
+  niche?: string;
+  platforms?: string[];
+  audienceGen?: string;
+  audiencePlatforms?: string;
+  contentLengthPreference?: string;
+  contentTypes?: string[];
+  contentGoal?: string;
+};
+
+export async function generateContentFromBrief(
+  input: string,
+  contentType: string,
+  outputFormat: string,
+  context: ContentGenerateContext
+): Promise<string> {
+  if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is not set");
+  const model = process.env.GEMINI_MODEL ?? "gemini-3-flash-preview";
+  const ctx = [
+    context.niche && "Niche: " + context.niche,
+    context.platforms?.length && "Platforms: " + context.platforms.join(", "),
+    context.audienceGen && "Target audience: " + context.audienceGen,
+    context.audiencePlatforms && "Audience platforms: " + context.audiencePlatforms,
+    context.contentLengthPreference && "Content length: " + context.contentLengthPreference,
+    context.contentGoal && "Goal: " + context.contentGoal,
+  ]
+    .filter(Boolean)
+    .join(". ");
+  const prompt = `You are an expert content creator. Generate ${contentType} content tailored to the creator's niche and audience.
+
+Creator context: ${ctx || "General audience."}
+
+Content type: ${contentType}. Output format: ${outputFormat}.
+
+Brief or idea from the creator:
+"""
+${input.slice(0, 8000)}
+"""
+
+Generate the full content now in Markdown format: use headers, lists, bold/italic where appropriate. Match the creator's niche, tone for their audience, and preferred length. Output only the markdown content, no meta commentary.`;
+  const response = await ai.models.generateContent({ model, contents: prompt });
+  return (response.text ?? "").trim();
+}
