@@ -107,3 +107,27 @@ JSON array:`;
     return [];
   }
 }
+
+export type StrategyResult = {
+  angles: string[];
+  youtubeHook: string;
+  reelConcept: string;
+};
+
+export async function generateStrategyFromTrend(trendTitle: string, context?: string): Promise<StrategyResult> {
+  if (!process.env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is not set");
+  const prompt = `Act as an elite content strategist. Here is a real-time trend: "${trendTitle}"${context ? `. Context: ${context}` : ""}.
+
+Generate a content strategy for this trend. Output ONLY valid JSON with exactly:
+- "angles": array of 3 unique content angles (short strings)
+- "youtubeHook": one catchy YouTube hook (opening line)
+- "reelConcept": one Instagram Reel concept (1-2 sentences)
+
+No markdown, no code fence. JSON only.`;
+  const raw = await generateJSON<StrategyResult>(prompt);
+  return {
+    angles: Array.isArray(raw?.angles) ? raw.angles.slice(0, 3).map(String) : [],
+    youtubeHook: typeof raw?.youtubeHook === "string" ? raw.youtubeHook : "",
+    reelConcept: typeof raw?.reelConcept === "string" ? raw.reelConcept : "",
+  };
+}

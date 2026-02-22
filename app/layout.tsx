@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Syne, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./providers";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -26,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${syne.variable} ${sourceSans.variable}`}>
       <body className="min-h-screen font-sans antialiased bg-background text-foreground">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
