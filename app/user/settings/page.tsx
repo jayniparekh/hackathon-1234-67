@@ -65,13 +65,13 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-white">
       {/* Header */}
-      <div className="border-b-2 border-border bg-secondary-background px-8 py-6 shadow-[var(--shadow)]">
-        <h1 className="font-[family-name:var(--font-syne)] text-3xl font-bold text-foreground">
+      <div className="border-b border-purple-200/50 bg-gradient-to-br from-white via-purple-50/30 to-orange-50/20 px-8 py-6 shadow-sm">
+        <h1 className="font-[family-name:var(--font-syne)] text-3xl font-bold text-slate-900">
           Settings
         </h1>
-        <p className="mt-2 text-foreground/70">
+        <p className="mt-2 text-slate-600">
           Manage your profile, brand voice, API integrations, and connected
           social accounts.
         </p>
@@ -79,16 +79,16 @@ export default function SettingsPage() {
 
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar Navigation */}
-        <div className="w-56 border-r-2 border-border bg-secondary-background p-4">
+        <div className="w-56 border-r border-purple-200/50 bg-white p-4">
           <div className="space-y-2">
             {SECTIONS.map((section) => (
               <button
                 key={section.id}
                 onClick={() => setActiveSection(section.id)}
-                className={`flex w-full items-center gap-2 rounded-lg border-2 px-4 py-3 text-left text-sm font-semibold transition-all ${
+                className={`flex w-full items-center gap-2 rounded border px-4 py-3 text-left text-sm font-semibold transition-colors ${
                   activeSection === section.id
-                    ? "border-main bg-main text-main-foreground"
-                    : "border-border bg-background text-foreground hover:bg-background"
+                    ? "border-orange-300 bg-orange-50 text-orange-700"
+                    : "border-purple-200/30 bg-purple-50/30 text-slate-700 hover:bg-purple-100/40"
                 }`}
               >
                 <section.Icon size={18} weight="duotone" />
@@ -99,60 +99,60 @@ export default function SettingsPage() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 overflow-y-auto p-8">
+        <div className="flex-1 overflow-y-auto p-8 bg-white">
           {/* Account Settings */}
           {activeSection === "account" && (
             <div className="max-w-2xl space-y-6">
-              <Card className="border-2 border-border bg-secondary-background p-6">
-                <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+              <Card className="border border-purple-200/50 bg-white p-6 shadow-sm">
+                <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900">
                   <User size={20} weight="duotone" /> Profile Information
                 </h2>
                 <div className="space-y-4">
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-foreground">
+                    <label className="mb-2 block text-sm font-semibold text-slate-700">
                       Full Name
                     </label>
                     <Input
                       defaultValue="Sarah Chen"
-                      className="border-2 border-border"
+                      className="border border-purple-200/50 bg-purple-50/30 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-foreground">
+                    <label className="mb-2 block text-sm font-semibold text-slate-700">
                       Email
                     </label>
                     <Input
                       defaultValue="sarah.chen@example.com"
                       type="email"
-                      className="border-2 border-border"
+                      className="border border-purple-200/50 bg-purple-50/30 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-foreground">
+                    <label className="mb-2 block text-sm font-semibold text-slate-700">
                       Company
                     </label>
                     <Input
-                      defaultValue="ContentForge Inc."
-                      className="border-2 border-border"
+                      defaultValue="Cortex Inc."
+                      className="border border-purple-200/50 bg-purple-50/30 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-foreground">
+                    <label className="mb-2 block text-sm font-semibold text-slate-700">
                       Bio
                     </label>
                     <Textarea
                       defaultValue="Content creator and AI enthusiast."
-                      className="h-24 border-2 border-border"
+                      className="h-24 border border-purple-200/50 bg-purple-50/30 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
                 </div>
               </Card>
 
-              <Card className="border-2 border-border bg-secondary-background p-6">
-                <h2 className="mb-4 text-lg font-bold text-foreground">
+              <Card className="border border-purple-200/50 bg-white p-6 shadow-sm">
+                <h2 className="mb-4 text-lg font-bold text-slate-900">
                   Password & Security
                 </h2>
-                <Button className="border-2 border-border bg-background text-foreground hover:bg-main hover:text-main-foreground rounded-lg">
+                <Button className="border border-purple-200/50 bg-orange-500 text-white hover:bg-orange-600 rounded">
                   Change Password
                 </Button>
               </Card>
@@ -162,26 +162,26 @@ export default function SettingsPage() {
           {/* Brand Voice */}
           {activeSection === "brand" && (
             <div className="max-w-2xl space-y-6">
-              <Card className="border-2 border-border bg-secondary-background p-6">
-                <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-foreground">
+              <Card className="border border-purple-200/50 bg-white p-6 shadow-sm">
+                <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-slate-900">
                   <Palette size={20} weight="duotone" /> Brand Voice Configuration
                 </h2>
                 <div className="space-y-4">
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-foreground">
+                    <label className="mb-2 block text-sm font-semibold text-slate-700">
                       Brand Name
                     </label>
                     <Input
-                      defaultValue="ContentForge AI"
-                      className="border-2 border-border"
+                      defaultValue="Cortex"
+                      className="border border-purple-200/50 bg-purple-50/30 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-foreground">
+                    <label className="mb-2 block text-sm font-semibold text-slate-700">
                       Brand Tone
                     </label>
                     <Select defaultValue="professional">
-                      <SelectTrigger className="border-2 border-border">
+                      <SelectTrigger className="border border-purple-200/50 bg-purple-50/30 text-slate-900">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -193,7 +193,7 @@ export default function SettingsPage() {
                     </Select>
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm font-semibold text-foreground">
+                    <label className="mb-2 block text-sm font-semibold text-slate-700">
                       Brand Voice & Guidelines
                     </label>
                     <Textarea
@@ -267,7 +267,7 @@ export default function SettingsPage() {
                   <Key size={20} weight="duotone" /> API Keys
                 </h2>
                 <p className="mb-4 text-sm text-foreground/70">
-                  Use your API key to integrate ContentForge with your own
+                  Use your API key to integrate Cortex with your own
                   applications.
                 </p>
 
@@ -316,7 +316,7 @@ export default function SettingsPage() {
                     Webhook URL
                   </label>
                   <Input
-                    placeholder="https://your-domain.com/webhooks/contentforge"
+                    placeholder="https://your-domain.com/webhooks/cortex"
                     className="border-2 border-border"
                   />
                 </div>

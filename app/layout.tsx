@@ -15,7 +15,7 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "ContentForge AI",
+  title: "Cortex",
   description: "From Idea to Impact - Intelligent Content Creation & Distribution at Scale",
 };
 

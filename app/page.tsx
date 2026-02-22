@@ -26,7 +26,7 @@ export default function Home() {
       <header className="absolute top-0 z-50 w-full border-b border-white/20 bg-black/20 px-6 py-4 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <span className="font-[family-name:var(--font-syne)] text-xl font-bold tracking-tight text-white">
-            ContentForge AI
+            Cortex
           </span>
           <nav className="flex gap-4">
             <Link

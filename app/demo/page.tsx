@@ -9,7 +9,7 @@ export default function FlowGradientDemo() {
 
   return (
     <Component 
-      title="Welcome to ContentForge AI"
+      title="Welcome to Cortex"
       showPauseButton={true}
       ctaText="Get Started"
       onCtaClick={handleCtaClick}

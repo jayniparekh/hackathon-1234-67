@@ -151,15 +151,15 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-secondary-background px-6 py-4 shadow-shadow">
+    <div className="min-h-screen bg-gradient-to-br from-white via-purple-50/30 to-orange-50/20">
+      <header className="border-b border-purple-100/50 bg-white/80 backdrop-blur-sm px-6 py-4">
         <div className="mx-auto flex max-w-2xl items-center justify-between">
-          <Link href="/" className="font-family-name:var(--font-syne) text-xl font-bold tracking-tight text-foreground">
-            ContentForge AI
+          <Link href="/" className="font-[family-name:var(--font-syne)] text-xl font-bold tracking-tight text-slate-900 hover:text-purple-700 transition-colors">
+            Cortex
           </Link>
-          <span className="text-sm text-foreground/70">
+          <span className="text-sm text-slate-600">
             Already have an account?{" "}
-            <Link href="/auth/signin" className="font-semibold text-main hover:underline">
+            <Link href="/auth/signin" className="font-semibold text-orange-500 hover:text-orange-600 transition-colors">
               Sign in
             </Link>
           </span>
@@ -167,23 +167,23 @@ export default function SignupPage() {
       </header>
 
       <main className="mx-auto max-w-2xl px-6 py-12">
-        <Card className="border-2 border-border bg-secondary-background p-8 shadow-shadow">
+        <Card className="border border-purple-200/50 bg-white/90 backdrop-blur-sm p-8 shadow-lg shadow-purple-200/10">
           {success ? (
             <div className="flex flex-col items-center gap-4 py-8 text-center">
-              <CheckCircle className="h-12 w-12 text-green-600" />
-              <h2 className="text-2xl font-bold text-foreground">Account Created!</h2>
-              <p className="text-foreground/80">Your account has been successfully created. Redirecting to sign in...</p>
+              <CheckCircle className="h-12 w-12 text-emerald-500" />
+              <h2 className="text-2xl font-bold text-slate-900">Account Created!</h2>
+              <p className="text-slate-600">Your account has been successfully created. Redirecting to sign in...</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <h1 className="font-family-name:var(--font-syne) mb-2 text-2xl font-bold text-foreground">
+                <h1 className="font-[family-name:var(--font-syne)] mb-2 text-2xl font-bold text-slate-900">
                   {step === "basic" && "Create Your Account"}
                   {step === "profile" && "Personal Information"}
                   {step === "creator" && "Creator Profile"}
                   {step === "audience" && "Audience & Preferences"}
                 </h1>
-                <p className="text-foreground/80">
+                <p className="text-slate-600">
                   {step === "basic" && "Enter your basic information"}
                   {step === "profile" && "Tell us about yourself"}
                   {step === "creator" && "Share your creator details"}
@@ -192,9 +192,9 @@ export default function SignupPage() {
               </div>
 
               {error && (
-                <div className="flex gap-3 (--radius-base) border-2 border-red-500 bg-red-100 p-4 dark:bg-red-900/20">
-                  <AlertCircle className="h-5 w-5 shrink-0 text-red-600 dark:text-red-400" />
-                  <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
+                <div className="flex gap-3 rounded border border-red-200 bg-red-50 p-4">
+                  <AlertCircle className="h-5 w-5 shrink-0 text-red-500" />
+                  <p className="text-sm text-red-700">{error}</p>
                 </div>
               )}
 
@@ -202,7 +202,7 @@ export default function SignupPage() {
               {step === "basic" && (
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="name" className="text-foreground">
+                    <Label htmlFor="name" className="text-slate-700 font-semibold">
                       Full Name *
                     </Label>
                     <Input
@@ -212,12 +212,12 @@ export default function SignupPage() {
                       placeholder="John Doe"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="username" className="text-foreground">
+                    <Label htmlFor="username" className="text-slate-700 font-semibold">
                       Username (optional)
                     </Label>
                     <Input
@@ -227,12 +227,12 @@ export default function SignupPage() {
                       placeholder="johndoe"
                       value={formData.username}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="email" className="text-foreground">
+                    <Label htmlFor="email" className="text-slate-700 font-semibold">
                       Email Address *
                     </Label>
                     <Input
@@ -242,12 +242,12 @@ export default function SignupPage() {
                       placeholder="john@example.com"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="password" className="text-foreground">
+                    <Label htmlFor="password" className="text-slate-700 font-semibold">
                       Password *
                     </Label>
                     <Input
@@ -257,12 +257,12 @@ export default function SignupPage() {
                       placeholder="At least 8 characters"
                       value={formData.password}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="confirmPassword" className="text-foreground">
+                    <Label htmlFor="confirmPassword" className="text-slate-700 font-semibold">
                       Confirm Password *
                     </Label>
                     <Input
@@ -272,7 +272,7 @@ export default function SignupPage() {
                       placeholder="Confirm your password"
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
 
@@ -294,7 +294,7 @@ export default function SignupPage() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="gender" className="text-foreground">
+                      <Label htmlFor="gender" className="text-slate-700 font-semibold">
                         Gender
                       </Label>
                       <select
@@ -302,7 +302,7 @@ export default function SignupPage() {
                         name="gender"
                         value={formData.gender}
                         onChange={handleInputChange}
-                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                        className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                       >
                         <option value="">Select...</option>
                         <option value="man">Man</option>
@@ -313,7 +313,7 @@ export default function SignupPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="age" className="text-foreground">
+                      <Label htmlFor="age" className="text-slate-700 font-semibold">
                         Age
                       </Label>
                       <Input
@@ -325,13 +325,13 @@ export default function SignupPage() {
                         onChange={handleInputChange}
                         min="13"
                         max="150"
-                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                        className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <Label htmlFor="location" className="text-foreground">
+                    <Label htmlFor="location" className="text-slate-700 font-semibold">
                       Location
                     </Label>
                     <Input
@@ -341,12 +341,12 @@ export default function SignupPage() {
                       placeholder="New York, USA"
                       value={formData.location}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="height" className="text-foreground">
+                    <Label htmlFor="height" className="text-slate-700 font-semibold">
                       Height
                     </Label>
                     <Input
@@ -356,12 +356,12 @@ export default function SignupPage() {
                       placeholder="5'10"
                       value={formData.height}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="education" className="text-foreground">
+                    <Label htmlFor="education" className="text-slate-700 font-semibold">
                       Education
                     </Label>
                     <select
@@ -369,7 +369,7 @@ export default function SignupPage() {
                       name="education"
                       value={formData.education}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     >
                       <option value="">Select...</option>
                       <option value="high-school">High School</option>
@@ -399,7 +399,7 @@ export default function SignupPage() {
                     </Button>
                   </div>
 
-                  <p className="text-center text-sm text-foreground/70">
+                  <p className="text-center text-sm text-slate-600">
                     All fields are optional. You can update them later.
                   </p>
                 </div>
@@ -409,7 +409,7 @@ export default function SignupPage() {
               {step === "creator" && (
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="niche" className="text-foreground">
+                    <Label htmlFor="niche" className="text-slate-700 font-semibold">
                       Niche
                     </Label>
                     <select
@@ -417,7 +417,7 @@ export default function SignupPage() {
                       name="niche"
                       value={formData.niche}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     >
                       <option value="">Select...</option>
                       <option value="fitness">Fitness</option>
@@ -433,7 +433,7 @@ export default function SignupPage() {
                   </div>
 
                   <div>
-                    <Label className="text-foreground">Platforms</Label>
+                    <Label className="text-slate-700 font-semibold">Platforms</Label>
                     <div className="mt-2 space-y-2">
                       {["Instagram", "LinkedIn", "YouTube", "Twitter/X", "TikTok", "Blog", "Podcast", "Email"].map(
                         (platform) => (
@@ -443,9 +443,9 @@ export default function SignupPage() {
                               id={`platform-${platform}`}
                               checked={formData.platforms.includes(platform)}
                               onChange={() => handleCheckboxChange("platforms", platform)}
-                              className="h-4 w-4 rounded border-2 border-border"
+                              className="h-4 w-4 rounded border border-purple-200/50 accent-orange-400"
                             />
-                            <Label htmlFor={`platform-${platform}`} className="cursor-pointer text-foreground">
+                            <Label htmlFor={`platform-${platform}`} className="cursor-pointer text-slate-700">
                               {platform}
                             </Label>
                           </div>
@@ -455,7 +455,7 @@ export default function SignupPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="experienceLevel" className="text-foreground">
+                    <Label htmlFor="experienceLevel" className="text-slate-700 font-semibold">
                       Experience Level
                     </Label>
                     <select
@@ -463,7 +463,7 @@ export default function SignupPage() {
                       name="experienceLevel"
                       value={formData.experienceLevel}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     >
                       <option value="">Select...</option>
                       <option value="Beginner">Beginner</option>
@@ -473,7 +473,7 @@ export default function SignupPage() {
                   </div>
 
                   <div>
-                    <Label className="text-foreground">Content Types</Label>
+                    <Label className="text-slate-700 font-semibold">Content Types</Label>
                     <div className="mt-2 space-y-2">
                       {[
                         "Short-form video",
@@ -490,9 +490,9 @@ export default function SignupPage() {
                             id={`content-type-${type}`}
                             checked={formData.contentTypes.includes(type)}
                             onChange={() => handleCheckboxChange("contentTypes", type)}
-                            className="h-4 w-4 rounded border-2 border-border"
+                            className="h-4 w-4 rounded border border-purple-200/50 accent-orange-400"
                           />
-                          <Label htmlFor={`content-type-${type}`} className="cursor-pointer text-foreground">
+                          <Label htmlFor={`content-type-${type}`} className="cursor-pointer text-slate-700">
                             {type}
                           </Label>
                         </div>
@@ -501,7 +501,7 @@ export default function SignupPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="contentGoal" className="text-foreground">
+                    <Label htmlFor="contentGoal" className="text-slate-700 font-semibold">
                       Content Goal
                     </Label>
                     <select
@@ -509,7 +509,7 @@ export default function SignupPage() {
                       name="contentGoal"
                       value={formData.contentGoal}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     >
                       <option value="">Select...</option>
                       <option value="Build Audience">Build Audience</option>
@@ -522,7 +522,7 @@ export default function SignupPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="postingFrequency" className="text-foreground">
+                    <Label htmlFor="postingFrequency" className="text-slate-700 font-semibold">
                       Posting Frequency (per week)
                     </Label>
                     <select
@@ -530,7 +530,7 @@ export default function SignupPage() {
                       name="postingFrequency"
                       value={formData.postingFrequency}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     >
                       <option value="">Select...</option>
                       <option value="1-2">1–2 posts</option>
@@ -558,7 +558,7 @@ export default function SignupPage() {
                     </Button>
                   </div>
 
-                  <p className="text-center text-sm text-foreground/70">
+                  <p className="text-center text-sm text-slate-600">
                     All fields are optional. You can update them later.
                   </p>
                 </div>
@@ -568,7 +568,7 @@ export default function SignupPage() {
               {step === "audience" && (
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="audienceGen" className="text-foreground">
+                    <Label htmlFor="audienceGen" className="text-slate-700 font-semibold">
                       Target Audience Generation
                     </Label>
                     <select
@@ -576,7 +576,7 @@ export default function SignupPage() {
                       name="audienceGen"
                       value={formData.audienceGen}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     >
                       <option value="">Select...</option>
                       <option value="Gen Z">Gen Z</option>
@@ -588,7 +588,7 @@ export default function SignupPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="audiencePlatforms" className="text-foreground">
+                    <Label htmlFor="audiencePlatforms" className="text-slate-700 font-semibold">
                       Audience Platforms (comma-separated)
                     </Label>
                     <Input
@@ -598,12 +598,12 @@ export default function SignupPage() {
                       placeholder="e.g., Instagram, YouTube, LinkedIn"
                       value={formData.audiencePlatforms}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="contentLengthPreference" className="text-foreground">
+                    <Label htmlFor="contentLengthPreference" className="text-slate-700 font-semibold">
                       Content Length Preference
                     </Label>
                     <select
@@ -611,7 +611,7 @@ export default function SignupPage() {
                       name="contentLengthPreference"
                       value={formData.contentLengthPreference}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     >
                       <option value="">Select...</option>
                       <option value="Short">Short</option>
@@ -622,7 +622,7 @@ export default function SignupPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="emojiUsage" className="text-foreground">
+                    <Label htmlFor="emojiUsage" className="text-slate-700 font-semibold">
                       Emoji Usage
                     </Label>
                     <select
@@ -630,7 +630,7 @@ export default function SignupPage() {
                       name="emojiUsage"
                       value={formData.emojiUsage}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     >
                       <option value="">Select...</option>
                       <option value="None">None</option>
@@ -641,7 +641,7 @@ export default function SignupPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="hashtagPreference" className="text-foreground">
+                    <Label htmlFor="hashtagPreference" className="text-slate-700 font-semibold">
                       Hashtag Preference
                     </Label>
                     <select
@@ -649,7 +649,7 @@ export default function SignupPage() {
                       name="hashtagPreference"
                       value={formData.hashtagPreference}
                       onChange={handleInputChange}
-                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                      className="mt-2 w-full rounded border border-purple-200/50 bg-purple-50/30 px-3 py-2 text-slate-900 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20 transition-all"
                     >
                       <option value="">Select...</option>
                       <option value="None">None</option>
@@ -676,7 +676,7 @@ export default function SignupPage() {
                     </Button>
                   </div>
 
-                  <p className="text-center text-sm text-foreground/70">
+                  <p className="text-center text-sm text-slate-600">
                     All fields are optional. You can update them later.
                   </p>
                 </div>
