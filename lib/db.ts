@@ -73,18 +73,24 @@ export type UserRecord = {
   username?: string;
   email: string;
   passwordHash: string;
+  // Personal Information
   gender?: "man" | "woman" | "non-binary" | "prefer-not-to-say";
   age?: number;
   location?: string;
-  niche?: "fitness" | "beauty" | "lifestyle";
   height?: string;
-  education?: "" | "high-school" | "some-college" | "bachelors" | "masters" | "doctorate" | "trade-school";
+  education?: "high-school" | "some-college" | "bachelors" | "masters" | "doctorate" | "trade-school";
+  // Creator Profile
+  niche?: "fitness" | "beauty" | "lifestyle" | "tech" | "business" | "finance" | "education" | "entertainment" | "other";
+  platforms?: string[];
+  experienceLevel?: "Beginner" | "Intermediate" | "Expert";
+  contentTypes?: string[];
   contentGoal?: "Build Audience" | "Sell Product" | "Educate" | "Personal Brand" | "Drive Traffic" | "Other";
-  religion?: "" | "agnostic" | "atheist" | "buddhist" | "christian" | "hindu" | "jewish" | "muslim" | "spiritual" | "other";
-  drinkingHabits?: "" | "never" | "rarely" | "socially" | "regularly";
+  // Audience & Preferences
   audienceGen?: "Gen Z" | "Millennials" | "Gen X" | "Boomers" | "Mixed";
-  fitnessLevel?: "" | "not-active" | "occasionally" | "moderately" | "very" | "athlete";
-  dietaryPreferences?: "" | "no-restrictions" | "vegetarian" | "vegan" | "pescatarian" | "kosher" | "halal" | "other";
+  audiencePlatforms?: string;
+  contentLengthPreference?: "Short" | "Medium" | "Long" | "Platform-specific";
+  emojiUsage?: "None" | "Minimal" | "Moderate" | "Heavy";
+  hashtagPreference?: "None" | "Few" | "Many";
   createdAt: Date;
   updatedAt: Date;
 };

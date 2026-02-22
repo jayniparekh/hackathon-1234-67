@@ -11,7 +11,7 @@ import { AlertCircle, CheckCircle } from "lucide-react";
 
 export default function SignupPage() {
   const router = useRouter();
-  const [step, setStep] = useState<"basic" | "profile">("basic");
+  const [step, setStep] = useState<"basic" | "profile" | "creator" | "audience">("basic");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -27,20 +27,36 @@ export default function SignupPage() {
     gender: "",
     age: "",
     location: "",
-    niche: "",
     height: "",
     education: "",
+    // Creator info
+    niche: "",
+    platforms: [] as string[],
+    experienceLevel: "",
+    contentTypes: [] as string[],
     contentGoal: "",
-    religion: "",
-    drinkingHabits: "",
+    // Audience & Preferences
     audienceGen: "",
-    fitnessLevel: "",
-    dietaryPreferences: "",
+    audiencePlatforms: "" as string,
+    contentLengthPreference: "",
+    emojiUsage: "",
+    hashtagPreference: "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCheckboxChange = (name: string, value: string) => {
+    setFormData((prev) => {
+      const currentArray = prev[name as keyof typeof prev] as string[];
+      if (currentArray.includes(value)) {
+        return { ...prev, [name]: currentArray.filter((item) => item !== value) };
+      } else {
+        return { ...prev, [name]: [...currentArray, value] };
+      }
+    });
   };
 
   const validateBasic = () => {
@@ -93,15 +109,18 @@ export default function SignupPage() {
         gender: formData.gender || undefined,
         age: formData.age ? parseInt(formData.age, 10) : undefined,
         location: formData.location || undefined,
-        niche: formData.niche || undefined,
         height: formData.height || undefined,
         education: formData.education || undefined,
+        niche: formData.niche || undefined,
+        platforms: formData.platforms.length > 0 ? formData.platforms : undefined,
+        experienceLevel: formData.experienceLevel || undefined,
+        contentTypes: formData.contentTypes.length > 0 ? formData.contentTypes : undefined,
         contentGoal: formData.contentGoal || undefined,
-        religion: formData.religion || undefined,
-        drinkingHabits: formData.drinkingHabits || undefined,
         audienceGen: formData.audienceGen || undefined,
-        fitnessLevel: formData.fitnessLevel || undefined,
-        dietaryPreferences: formData.dietaryPreferences || undefined,
+        audiencePlatforms: formData.audiencePlatforms || undefined,
+        contentLengthPreference: formData.contentLengthPreference || undefined,
+        emojiUsage: formData.emojiUsage || undefined,
+        hashtagPreference: formData.hashtagPreference || undefined,
       };
 
       const res = await fetch("/api/auth/signup", {
@@ -157,10 +176,16 @@ export default function SignupPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <h1 className="font-family-name:var(--font-syne) mb-2 text-2xl font-bold text-foreground">
-                  Create Your Account
+                  {step === "basic" && "Create Your Account"}
+                  {step === "profile" && "Personal Information"}
+                  {step === "creator" && "Creator Profile"}
+                  {step === "audience" && "Audience & Preferences"}
                 </h1>
                 <p className="text-foreground/80">
-                  {step === "basic" ? "Enter your basic information" : "Tell us about yourself"}
+                  {step === "basic" && "Enter your basic information"}
+                  {step === "profile" && "Tell us about yourself"}
+                  {step === "creator" && "Share your creator details"}
+                  {step === "audience" && "Define your audience preferences"}
                 </p>
               </div>
 
@@ -256,7 +281,7 @@ export default function SignupPage() {
                       </Button>
                     </Link>
                     <Button type="button" onClick={handleNextStep} className="flex-1 bg-main text-main-foreground">
-                      Next: Profile Info
+                      Next
                     </Button>
                   </div>
                 </div>
@@ -318,191 +343,39 @@ export default function SignupPage() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="niche" className="text-foreground">
-                        Niche
-                      </Label>
-                      <select
-                        id="niche"
-                        name="niche"
-                        value={formData.niche}
-                        onChange={handleInputChange}
-                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
-                      >
-                        <option value="">Select...</option>
-                        <option value="fitness">Fitness</option>
-                        <option value="beauty">Beauty</option>
-                        <option value="lifestyle">Lifestyle</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="height" className="text-foreground">
-                        Height
-                      </Label>
-                      <Input
-                        id="height"
-                        name="height"
-                        type="text"
-                        placeholder="5&apos;10&quot;"
-                        value={formData.height}
-                        onChange={handleInputChange}
-                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="education" className="text-foreground">
-                        Education
-                      </Label>
-                      <select
-                        id="education"
-                        name="education"
-                        value={formData.education}
-                        onChange={handleInputChange}
-                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
-                      >
-                        <option value="">Select...</option>
-                        <option value="high-school">High School</option>
-                        <option value="some-college">Some College</option>
-                        <option value="bachelors">Bachelor&apos;s</option>
-                        <option value="masters">Master&apos;s</option>
-                        <option value="doctorate">Doctorate</option>
-                        <option value="trade-school">Trade School</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="contentGoal" className="text-foreground">
-                        Content Goal
-                      </Label>
-                      <select
-                        id="contentGoal"
-                        name="contentGoal"
-                        value={formData.contentGoal}
-                        onChange={handleInputChange}
-                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
-                      >
-                        <option value="">Select...</option>
-                        <option value="Build Audience">Build Audience</option>
-                        <option value="Sell Product">Sell Product</option>
-                        <option value="Educate">Educate</option>
-                        <option value="Personal Brand">Personal Brand</option>
-                        <option value="Drive Traffic">Drive Traffic</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="religion" className="text-foreground">
-                        Religion
-                      </Label>
-                      <select
-                        id="religion"
-                        name="religion"
-                        value={formData.religion}
-                        onChange={handleInputChange}
-                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
-                      >
-                        <option value="">Select...</option>
-                        <option value="agnostic">Agnostic</option>
-                        <option value="atheist">Atheist</option>
-                        <option value="buddhist">Buddhist</option>
-                        <option value="christian">Christian</option>
-                        <option value="hindu">Hindu</option>
-                        <option value="jewish">Jewish</option>
-                        <option value="muslim">Muslim</option>
-                        <option value="spiritual">Spiritual</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="drinkingHabits" className="text-foreground">
-                        Drinking Habits
-                      </Label>
-                      <select
-                        id="drinkingHabits"
-                        name="drinkingHabits"
-                        value={formData.drinkingHabits}
-                        onChange={handleInputChange}
-                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
-                      >
-                        <option value="">Select...</option>
-                        <option value="never">Never</option>
-                        <option value="rarely">Rarely</option>
-                        <option value="socially">Socially</option>
-                        <option value="regularly">Regularly</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="audienceGen" className="text-foreground">
-                        Target Audience Generation
-                      </Label>
-                      <select
-                        id="audienceGen"
-                        name="audienceGen"
-                        value={formData.audienceGen}
-                        onChange={handleInputChange}
-                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
-                      >
-                        <option value="">Select...</option>
-                        <option value="Gen Z">Gen Z</option>
-                        <option value="Millennials">Millennials</option>
-                        <option value="Gen X">Gen X</option>
-                        <option value="Boomers">Boomers</option>
-                        <option value="Mixed">Mixed</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="fitnessLevel" className="text-foreground">
-                        Fitness Level
-                      </Label>
-                      <select
-                        id="fitnessLevel"
-                        name="fitnessLevel"
-                        value={formData.fitnessLevel}
-                        onChange={handleInputChange}
-                        className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
-                      >
-                        <option value="">Select...</option>
-                        <option value="not-active">Not Active</option>
-                        <option value="occasionally">Occasionally</option>
-                        <option value="moderately">Moderately</option>
-                        <option value="very">Very</option>
-                        <option value="athlete">Athlete</option>
-                      </select>
-                    </div>
+                  <div>
+                    <Label htmlFor="height" className="text-foreground">
+                      Height
+                    </Label>
+                    <Input
+                      id="height"
+                      name="height"
+                      type="text"
+                      placeholder="5'10"
+                      value={formData.height}
+                      onChange={handleInputChange}
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                    />
                   </div>
 
                   <div>
-                    <Label htmlFor="dietaryPreferences" className="text-foreground">
-                      Dietary Preferences
+                    <Label htmlFor="education" className="text-foreground">
+                      Education
                     </Label>
                     <select
-                      id="dietaryPreferences"
-                      name="dietaryPreferences"
-                      value={formData.dietaryPreferences}
+                      id="education"
+                      name="education"
+                      value={formData.education}
                       onChange={handleInputChange}
                       className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
                     >
                       <option value="">Select...</option>
-                      <option value="no-restrictions">No Restrictions</option>
-                      <option value="vegetarian">Vegetarian</option>
-                      <option value="vegan">Vegan</option>
-                      <option value="pescatarian">Pescatarian</option>
-                      <option value="kosher">Kosher</option>
-                      <option value="halal">Halal</option>
-                      <option value="other">Other</option>
+                      <option value="high-school">High School</option>
+                      <option value="some-college">Some College</option>
+                      <option value="bachelors">Bachelor's</option>
+                      <option value="masters">Master's</option>
+                      <option value="doctorate">Doctorate</option>
+                      <option value="trade-school">Trade School</option>
                     </select>
                   </div>
 
@@ -511,6 +384,264 @@ export default function SignupPage() {
                       type="button"
                       variant="outline"
                       onClick={() => setStep("basic")}
+                      className="flex-1"
+                    >
+                      Back
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() => setStep("creator")}
+                      className="flex-1 bg-main text-main-foreground"
+                    >
+                      Next
+                    </Button>
+                  </div>
+
+                  <p className="text-center text-sm text-foreground/70">
+                    All fields are optional. You can update them later.
+                  </p>
+                </div>
+              )}
+
+              {/* CREATOR PROFILE STEP */}
+              {step === "creator" && (
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="niche" className="text-foreground">
+                      Niche
+                    </Label>
+                    <select
+                      id="niche"
+                      name="niche"
+                      value={formData.niche}
+                      onChange={handleInputChange}
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                    >
+                      <option value="">Select...</option>
+                      <option value="fitness">Fitness</option>
+                      <option value="beauty">Beauty</option>
+                      <option value="lifestyle">Lifestyle</option>
+                      <option value="tech">Tech</option>
+                      <option value="business">Business</option>
+                      <option value="finance">Finance</option>
+                      <option value="education">Education</option>
+                      <option value="entertainment">Entertainment</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <Label className="text-foreground">Platforms</Label>
+                    <div className="mt-2 space-y-2">
+                      {["Instagram", "LinkedIn", "YouTube", "Twitter/X", "TikTok", "Blog", "Podcast", "Email"].map(
+                        (platform) => (
+                          <div key={platform} className="flex items-center gap-3">
+                            <input
+                              type="checkbox"
+                              id={`platform-${platform}`}
+                              checked={formData.platforms.includes(platform)}
+                              onChange={() => handleCheckboxChange("platforms", platform)}
+                              className="h-4 w-4 rounded border-2 border-border"
+                            />
+                            <Label htmlFor={`platform-${platform}`} className="cursor-pointer text-foreground">
+                              {platform}
+                            </Label>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="experienceLevel" className="text-foreground">
+                      Experience Level
+                    </Label>
+                    <select
+                      id="experienceLevel"
+                      name="experienceLevel"
+                      value={formData.experienceLevel}
+                      onChange={handleInputChange}
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                    >
+                      <option value="">Select...</option>
+                      <option value="Beginner">Beginner</option>
+                      <option value="Intermediate">Intermediate</option>
+                      <option value="Expert">Expert</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <Label className="text-foreground">Content Types</Label>
+                    <div className="mt-2 space-y-2">
+                      {[
+                        "Short-form video",
+                        "Long-form video",
+                        "Articles",
+                        "Threads",
+                        "Newsletters",
+                        "Podcasts",
+                        "Carousels",
+                      ].map((type) => (
+                        <div key={type} className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            id={`content-type-${type}`}
+                            checked={formData.contentTypes.includes(type)}
+                            onChange={() => handleCheckboxChange("contentTypes", type)}
+                            className="h-4 w-4 rounded border-2 border-border"
+                          />
+                          <Label htmlFor={`content-type-${type}`} className="cursor-pointer text-foreground">
+                            {type}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="contentGoal" className="text-foreground">
+                      Content Goal
+                    </Label>
+                    <select
+                      id="contentGoal"
+                      name="contentGoal"
+                      value={formData.contentGoal}
+                      onChange={handleInputChange}
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                    >
+                      <option value="">Select...</option>
+                      <option value="Build Audience">Build Audience</option>
+                      <option value="Sell Product">Sell Product</option>
+                      <option value="Educate">Educate</option>
+                      <option value="Personal Brand">Personal Brand</option>
+                      <option value="Drive Traffic">Drive Traffic</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  <div className="flex gap-3 pt-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setStep("profile")}
+                      className="flex-1"
+                    >
+                      Back
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() => setStep("audience")}
+                      className="flex-1 bg-main text-main-foreground"
+                    >
+                      Next
+                    </Button>
+                  </div>
+
+                  <p className="text-center text-sm text-foreground/70">
+                    All fields are optional. You can update them later.
+                  </p>
+                </div>
+              )}
+
+              {/* AUDIENCE & PREFERENCES STEP */}
+              {step === "audience" && (
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="audienceGen" className="text-foreground">
+                      Target Audience Generation
+                    </Label>
+                    <select
+                      id="audienceGen"
+                      name="audienceGen"
+                      value={formData.audienceGen}
+                      onChange={handleInputChange}
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                    >
+                      <option value="">Select...</option>
+                      <option value="Gen Z">Gen Z</option>
+                      <option value="Millennials">Millennials</option>
+                      <option value="Gen X">Gen X</option>
+                      <option value="Boomers">Boomers</option>
+                      <option value="Mixed">Mixed</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="audiencePlatforms" className="text-foreground">
+                      Audience Platforms (comma-separated)
+                    </Label>
+                    <Input
+                      id="audiencePlatforms"
+                      name="audiencePlatforms"
+                      type="text"
+                      placeholder="e.g., Instagram, YouTube, LinkedIn"
+                      value={formData.audiencePlatforms}
+                      onChange={handleInputChange}
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="contentLengthPreference" className="text-foreground">
+                      Content Length Preference
+                    </Label>
+                    <select
+                      id="contentLengthPreference"
+                      name="contentLengthPreference"
+                      value={formData.contentLengthPreference}
+                      onChange={handleInputChange}
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                    >
+                      <option value="">Select...</option>
+                      <option value="Short">Short</option>
+                      <option value="Medium">Medium</option>
+                      <option value="Long">Long</option>
+                      <option value="Platform-specific">Platform-specific</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="emojiUsage" className="text-foreground">
+                      Emoji Usage
+                    </Label>
+                    <select
+                      id="emojiUsage"
+                      name="emojiUsage"
+                      value={formData.emojiUsage}
+                      onChange={handleInputChange}
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                    >
+                      <option value="">Select...</option>
+                      <option value="None">None</option>
+                      <option value="Minimal">Minimal</option>
+                      <option value="Moderate">Moderate</option>
+                      <option value="Heavy">Heavy</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="hashtagPreference" className="text-foreground">
+                      Hashtag Preference
+                    </Label>
+                    <select
+                      id="hashtagPreference"
+                      name="hashtagPreference"
+                      value={formData.hashtagPreference}
+                      onChange={handleInputChange}
+                      className="mt-2 w-full rounded border-2 border-border bg-background px-3 py-2 text-foreground"
+                    >
+                      <option value="">Select...</option>
+                      <option value="None">None</option>
+                      <option value="Few">Few</option>
+                      <option value="Many">Many</option>
+                    </select>
+                  </div>
+
+                  <div className="flex gap-3 pt-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setStep("creator")}
                       className="flex-1"
                     >
                       Back
@@ -525,7 +656,7 @@ export default function SignupPage() {
                   </div>
 
                   <p className="text-center text-sm text-foreground/70">
-                    All profile fields are optional. You can update them later.
+                    All fields are optional. You can update them later.
                   </p>
                 </div>
               )}
